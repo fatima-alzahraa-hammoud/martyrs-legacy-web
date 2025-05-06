@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('stories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->foreignId('martyr_id')->nullable()->constrained('martyrs')->onDelete('cascade');
-            $table->foreignId('image_id')->constrained('photos');
-            $table->foreignId('video_id')->constrained('videos');
-            $table->string('title')->nullable();
-            $table->text('description')->nullable();
-            $table->text('content')->nullable();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('martyr_id')->constrained('martyrs')->onDelete('cascade');
+            $table->foreignId('image_id')->nullable()->constrained('medias');
+            $table->foreignId('video_id')->nullable()->constrained('medias');
+            $table->foreignId('audio_id')->nullable()->constrained('medias');
+            $table->string('title');
+            $table->text('description');
+            $table->text('content');
             $table->boolean('updating')->default(false);
             $table->boolean('isUpdated')->default(false);
             $table->timestamps();

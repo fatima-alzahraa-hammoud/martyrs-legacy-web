@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('medias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('martyr_id')->nullable()->constrained('martyrs')->onDelete('cascade');
-            $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->string('file_path')->nullable();
-            $table->string('file_name')->nullable();
-            $table->enum('file_type',['photo', 'video', 'audio'])->nullable();
-            $table->enum('file_kind',['interviews', 'identity', 'personal'])->nullable();
-            $table->string('file_description')->nullable();
-            $table->date('file_date')->nullable();
+            $table->foreignId('martyr_id')->constrained('martyrs')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('file_path');
+            $table->string('file_name');
+            $table->enum('file_type',['photo', 'video', 'audio']);
+            $table->enum('file_kind',['interviews', 'identity', 'personal']);
+            $table->string('file_description');
+            $table->date('file_date');
             $table->string('file_location')->nullable();
             $table->timestamps();
         });
