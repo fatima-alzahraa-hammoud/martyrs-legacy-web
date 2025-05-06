@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('martyr_wills', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('martyr_id')->nullable()->constrained('martyrs')->onDelete('cascade');
-            $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->string('title')->nullable();
-            $table->text('description')->nullable();
+            $table->foreignId('martyr_id')->constrained('martyrs')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('title');
+            $table->text('description');
             $table->enum('document_type', ['will', 'letter', 'audio_message', 'video_message']);
             $table->foreignId('video_id')->constrained('videos');
             $table->string('file_path'); // For documents/audio
