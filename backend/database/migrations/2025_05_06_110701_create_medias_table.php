@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('videos', function (Blueprint $table) {
+        Schema::create('medias', function (Blueprint $table) {
             $table->id();
             $table->foreignId('martyr_id')->nullable()->constrained('martyrs')->onDelete('cascade');
             $table->foreignId('user_id')->nullable()->constrained('users');
-            $table->string('video_path')->nullable();
-            $table->string('video_name')->nullable();
-            $table->enum('video_type',['interviews', 'personal'])->nullable();
-            $table->string('video_description')->nullable();
-            $table->date('video_date')->nullable();
-            $table->string('video_location')->nullable();
+            $table->string('file_path')->nullable();
+            $table->string('file_name')->nullable();
+            $table->enum('file_type',['photo', 'video', 'audio'])->nullable();
+            $table->enum('file_kind',['interviews', 'identity', 'personal'])->nullable();
+            $table->string('file_description')->nullable();
+            $table->date('file_date')->nullable();
+            $table->string('file_location')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('videos');
+        Schema::dropIfExists('photos');
     }
 };
