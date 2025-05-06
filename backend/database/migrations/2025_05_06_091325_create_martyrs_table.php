@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('status', ['martyr', 'missing', 'detained'])->default('martyr')->nullable();
             $table->enum('marital_status', ['single', 'engaged', 'married', 'widowed'])->default('single')->nullable();
             $table->number('nb_of_children');
+            $table->foreignId('image_id')->constrained('photos');
             $table->string('related_phone_nb');
             $table->foreignId('user_id_publish')->nullable()->constrained('users');
             $table->boolean('is_published');
