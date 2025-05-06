@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->enum('document_type', ['will', 'letter', 'audio_message', 'video_message']);
-            $table->foreignId('video_id')->constrained('videos');
-            $table->string('file_path'); // For documents/audio
-            $table->text('content')->nullable(); // For text transcription
+            $table->foreignId('video_id')->nullable()->constrained('medias');
+            $table->foreignId('audio_id')->nullable()->constrained('medias');
+            $table->foreignId('image_id')->nullable()->constrained('medias');
+            $table->text('content');
             $table->date('date');
             $table->timestamps();
         });
