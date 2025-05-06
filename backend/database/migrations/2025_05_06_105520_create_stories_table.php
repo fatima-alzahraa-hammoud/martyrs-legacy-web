@@ -15,9 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('martyr_id')->constrained('martyrs')->onDelete('cascade');
-            $table->foreignId('image_id')->nullable()->constrained('medias');
-            $table->foreignId('video_id')->nullable()->constrained('medias');
-            $table->foreignId('audio_id')->nullable()->constrained('medias');
             $table->string('title');
             $table->text('description');
             $table->text('content');
