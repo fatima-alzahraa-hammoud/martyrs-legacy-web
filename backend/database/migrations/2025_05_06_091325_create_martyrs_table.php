@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('burial_place');
             $table->enum('status', ['martyr', 'missing', 'detained'])->default('martyr');
             $table->enum('marital_status', ['single', 'engaged', 'married', 'widowed'])->default('single');
-            $table->number('nb_of_children')->nullable();
+            $table->integer('nb_of_children')->nullable();
             $table->string('related_phone_nb');
             $table->boolean('is_published');
             $table->boolean('updating');
