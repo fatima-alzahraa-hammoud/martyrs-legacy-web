@@ -23,13 +23,13 @@ return new class extends Migration
             $table->enum('status', ['martyr', 'missing', 'detained'])->default('martyr')->nullable();
             $table->enum('marital_status', ['single', 'engaged', 'married', 'widowed'])->default('single')->nullable();
             $table->number('nb_of_children');
+            $table->string('image')->nullable();
             $table->string('related_phone_nb');
-            $table->foreign('user_id_publish')->references('id')->on('users');
+            $table->foreignId('user_id_publish')->nullable()->constrained('users');
             $table->boolean('is_published');
             $table->boolean('updating');
             $table->boolean('is_updated');
             $table->timestamps();
-
         });
     }
 
