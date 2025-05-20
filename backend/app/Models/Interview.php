@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Story extends Model
+class Interview extends Model
 {
     protected $fillable = [
         'user_id',
         'martyr_id',
         'title',
         'description',
+        'document_type',
         'content',
-        'updating',
-        'isUpdated',
+        'date',
         'image_id',
         'video_id',
         'audio_id'
