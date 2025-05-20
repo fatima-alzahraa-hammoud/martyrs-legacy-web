@@ -30,6 +30,30 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
+    public function martyrs(){
+        return $this->hasMany(Martyr::class);
+    }
+
+    public function stories(){
+        return $this->hasMany(Story::class);
+    }
+
+    public function medias(){
+        return $this->hasMany(Media::class);
+    }
+
+    public function martyrWills(){
+        return $this->hasMany(MartyrWill::class);
+    }
+    
+    public function speeches(){
+        return $this->hasMany(Speech::class);
+    }
+
+    public function interviews(){
+        return $this->hasMany(Interview::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
