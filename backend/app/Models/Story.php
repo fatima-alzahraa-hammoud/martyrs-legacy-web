@@ -18,4 +18,13 @@ class Story extends Model
         'video_id',
         'audio_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function martyr()
+    {
+        return $this->belongsTo(Martyr::class);
+    }
 }
