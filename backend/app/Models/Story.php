@@ -13,6 +13,9 @@ class Story extends Model
         'description',
         'content',
         'updating',
-        'isUpdated'
+        'isUpdated',
+        'image_id',
+        'video_id',
+        'audio_id'
     ];
 }
