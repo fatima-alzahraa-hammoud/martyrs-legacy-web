@@ -60,4 +60,21 @@ class UserController extends Controller
             'data' => $user
         ], 201);
     }
+
+    public function deleteUser($id){
+        $user = User::findOrFail($id);
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found'
+            ], 404);
+        }
+
+        $user->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User deleted successfully'
+        ], 200);
+    }
 }
