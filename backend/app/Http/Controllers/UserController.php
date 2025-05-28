@@ -61,6 +61,39 @@ class UserController extends Controller
         ], 201);
     }
 
+    public function updateUser(Request $request){
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:users,id',
+            'name' => 'sometimes|string|max:255',
+            'email' => 'sometimes|string|email|max:255|unique:users,email,' . $request->id,
+            'password' => 'sometimes|string|min:8',
+            'phone_number' => 'sometimes|string|max:15',
+            'role_id' => 'sometimes|exists:roles,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $validator->errors()
+            ], 422);
+        }
+
+        $user = User::findOrFail($request->id);
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found'
+            ], 404);
+        }
+
+        $user->update($validator->validated());
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $user
+        ], 200);
+    }
+
     public function deleteUser($id){
         $user = User::findOrFail($id);
         if (!$user) {
