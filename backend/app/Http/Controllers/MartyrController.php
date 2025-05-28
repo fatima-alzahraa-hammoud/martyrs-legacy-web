@@ -29,4 +29,21 @@ class MartyrController extends Controller
             'data' => $martyr
         ], 200);
     }
+
+    public function deleteMartyr($id){
+        $martyr = Martyr::findOrFail($id);
+        if (!$martyr) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Martyr not found'
+            ], 404);
+        }
+
+        $martyr->delete();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Martyr deleted successfully'
+        ], 200);
+    }
 }
