@@ -14,4 +14,19 @@ class MartyrController extends Controller
             'data' => $martyrs
         ], 200);
     }
+
+    public function getMartyr($id){
+        $martyr = Martyr::findOrFail($id);
+        if (!$martyr) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Martyr not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $martyr
+        ], 200);
+    }
 }
