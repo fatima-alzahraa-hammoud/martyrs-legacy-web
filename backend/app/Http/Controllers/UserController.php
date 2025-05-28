@@ -12,7 +12,7 @@ class UserController extends Controller
         return response()->json([
             'status' => 'success',
             'data' => $users
-        ]);
+        ], 200);
     }
 
     public function getUser($id){
@@ -27,6 +27,6 @@ class UserController extends Controller
         return response()->json([
             'status' => 'success',
             'data' => $user
-        ]);
+        ], 200);
     }
 }
