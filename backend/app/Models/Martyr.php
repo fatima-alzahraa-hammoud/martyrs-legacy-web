@@ -18,4 +18,19 @@ class Martyr extends Model
         return $this->belongsTo(Media::class, 'image_id');
     }
 
+    public function martyrWills()
+    {
+        return $this->hasMany(MartyrWill::class);
+    }
+
+    public function interviews()
+    {
+        return $this->hasMany(Interview::class);
+    }
+
+    public function stories()
+    {
+        return $this->hasMany(Story::class);
+    }
+
 }
