@@ -18,4 +18,21 @@ class MartyrWill extends Model
     {
         return $this->belongsTo(Martyr::class);
     }
+
+    
+    public function video()
+    {
+        return $this->belongsTo(Media::class, 'video_id');
+    }
+
+    public function audio()
+    {
+        return $this->belongsTo(Media::class, 'audio_id');
+    }
+
+    public function image()
+    {
+        return $this->belongsTo(Media::class, 'image_id');
+    }
+
 }
