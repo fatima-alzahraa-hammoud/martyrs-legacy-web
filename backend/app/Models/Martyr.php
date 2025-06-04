@@ -33,4 +33,9 @@ class Martyr extends Model
         return $this->hasMany(Story::class);
     }
 
+    public function speeches()
+    {
+        return $this->hasMany(Speech::class);
+    }
+
 }
