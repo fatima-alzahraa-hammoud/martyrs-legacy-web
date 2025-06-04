@@ -13,4 +13,9 @@ class Martyr extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function image()
+    {
+        return $this->belongsTo(Media::class, 'image_id');
+    }
+
 }
