@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Story;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class StoryController extends Controller
 {

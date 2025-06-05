@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MartyrWill;
 use Illuminate\Http\Request;
+use Validator;
 
 class MartyrWillController extends Controller
 {

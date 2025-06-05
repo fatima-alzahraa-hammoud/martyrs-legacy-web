@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Speech;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SpeechController extends Controller
 {
