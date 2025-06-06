@@ -6,4 +6,4 @@ export const requestMethods = {
   PATCH: 'PATCH',
   HEAD: 'HEAD', 
   OPTIONS: 'OPTIONS'
-};
+} as const;
