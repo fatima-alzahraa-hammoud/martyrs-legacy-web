@@ -153,4 +153,46 @@ class AuthController extends Controller
         }
     }
 
+    public function resetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $validator->errors()
+            ], 422);
+        }
+
+        try {
+            $data = $validator->validated();
+            $user = User::where('email', $data['email'])->first();
+
+            if (!$user) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'User not found'
+                ], 404);
+            }
+
+            // Here we would typically send a reset link to the user's email
+
+
+            // For simplicity, we will just return a success message
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Password reset link sent to your email'
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Password reset failed: ' . $e->getMessage()
+            ], 500);
+        }
+
+    }
+
 }
