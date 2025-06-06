@@ -28,6 +28,7 @@ class AuthController extends Controller
         try {
             $data = $validator->validated();
             $data['password'] = bcrypt($data['password']);
+            $data['role_id'] = 3;
             $user = User::create($data);
             $token = JWTAuth::fromUser($user);
 
