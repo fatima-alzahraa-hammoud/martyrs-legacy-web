@@ -1,14 +1,15 @@
 import axios from "axios";
+import type { requestMethods } from "./requestMethod";
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
 
 interface RequestApiParams {
     route: string;
-    method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH' | 'HEAD' | 'OPTIONS';
+    method?: keyof typeof requestMethods;
     body?: any;
 }
 
-export const requestApi = async ({ route, method = "GET", body }: RequestApiParams) => {
+export const requestApi = async ({ route, method, body }: RequestApiParams) => {
     try {
         const response = await axios.request({
             url: route,
