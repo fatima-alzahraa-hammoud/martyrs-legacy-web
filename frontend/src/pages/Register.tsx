@@ -2,6 +2,20 @@ import React, { useState } from "react";
 import { requestApi } from "../utils/requestAPI";
 import { requestMethods } from "../utils/requestMethod";
 const Register: React.FC = () => {
+  const [form, setRegisterForm] = useState({
+        name:"",
+        email: "",
+        password: "",
+        phone_number:""
+    });
+
+
+    const Register = async(e: { preventDefault: () => void; }) =>{ 
+        e.preventDefault(); 
+        console.log("Register function called");
+
+    }
+
 
        return(
         <div>
