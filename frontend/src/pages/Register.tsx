@@ -8,16 +8,23 @@ const Register: React.FC = () => {
         password: "",
         phone_number:""
     });
-
-
     const Register = async(e: { preventDefault: () => void; }) =>{ 
         e.preventDefault(); 
         console.log("Register function called");
 
+        try {
+            const response = await requestApi({
+                route: "auth/register",
+                method: requestMethods.POST,
+                body: JSON.stringify(form),
+            });
+            console.log(response.data.message);
+            
+        } catch (error : any) {
+            
+        }
     }
-
-
-       return(
+     return(
         <div>
             <h1>Create a New Account</h1>
             <form onSubmit={(e) => Register(e)}>
