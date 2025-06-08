@@ -74,7 +74,27 @@ const Home: React.FC = () => {
                 </ul>
             </div>
 
-            
+            {/* Contact us */}
+            <div>
+                <h2>تواصل معنا</h2>
+                <p>إذا كان لديك أي استفسارات أو اقتراحات، فلا تتردد في التواصل معنا. نحن هنا للاستماع إليك ومساعدتك.</p>
+                <form>
+                    <div>
+                        <label htmlFor="name">الاسم:</label>
+                        <input type="text" id="name" name="name" required placeholder="أدخل اسمك" />
+                    </div>
+                    <div>
+                        <label htmlFor="email">البريد الإلكتروني:</label>
+                        <input type="email" id="email" name="email" required placeholder="أدخل بريدك الإلكتروني" />
+                    </div>
+                    <div>
+                        <label htmlFor="message">الرسالة:</label>
+                        <textarea id="message" name="message" required placeholder="اكتب رسالتك هنا"></textarea>
+                    </div>
+                    <button type="submit">إرسال</button>
+                </form>
+            </div>
+
         </div>
     );
 }
