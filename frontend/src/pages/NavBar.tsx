@@ -1,21 +1,24 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const NavBar: React.FC = () => {
+    
+    const navigate = useNavigate();
 
     return(
         <div>
             {/* nav bar */}
             <nav>
                 <ul>
-                    <li><a href="">الصفحة الرئيسيّة</a></li>
-                    <li><a href="">الشهداء</a></li>
-                    <li><a href="">الأمين على قلوبنا</a></li>
-                    <li><a href="">صفحتي</a></li>
-                    <li><a href="">تواصل معنا</a></li>
+                    <li><Link to="/">الصفحة الرئيسيّة</Link></li>
+                    <li><Link to="">الشهداء</Link></li>
+                    <li><Link to="">الأمين على قلوبنا</Link></li>
+                    <li><Link to="">صفحتي</Link></li>
+                    <li><Link to="">تواصل معنا</Link></li>
                 </ul>
 
-                <button>تسجيل الدّخول</button>
-                <button>إنشاء حساب جديد</button>
+                <button onClick={() => navigate("/login")}>تسجيل الدّخول</button>
+                <button onClick={() => navigate("/register")}>إنشاء حساب جديد</button>
             </nav>
         </div>
     );
