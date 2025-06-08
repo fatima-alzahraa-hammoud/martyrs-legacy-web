@@ -14,11 +14,6 @@ const Sidebar: React.FC = () => {
                     <li><Link to="/interviews">المقابلات</Link></li>
                     <li><Link to="/media">الوسائط</Link></li>
                 </ul>
-
-                <div>
-                    <button onClick={() => navigate("/login")}>تسجيل الدّخول</button>
-                    <button onClick={() => navigate("/register")}>إنشاء حساب جديد</button>
-                </div>
             </nav>
         </aside>
     );

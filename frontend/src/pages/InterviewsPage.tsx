@@ -1,0 +1,39 @@
+import React from "react";
+import Sidebar from "../components/Sidebar";
+
+type Interview = {
+  title: string;
+  date: string;
+};
+
+const InterviewsPage: React.FC = () => {
+  const interviews: Interview[] = [];
+
+  return (
+    <div style={{ display: "flex" }}>
+      <Sidebar />
+    
+        <header>
+          <h1>المقابلات</h1>
+          <p>في هذه الصفحة، نستعرض مقابلات حصرية مع عائلات الشهداء ورفاقهم وشهادات حيّة عن بطولاتهم.</p>
+        </header>
+
+        <section style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "20px" }}>
+          {interviews.map((interview, index) => (
+            <div key={index}>
+              <h3>{interview.title}</h3>
+              <p><strong>تاريخ المقابلة:</strong> {interview.date}</p>
+              <button>قراءة المزيد</button>
+            </div>
+          ))}
+        </section>
+
+        {/* Footer */}
+        <footer>
+          <p>سنظل أوفياء لدماء الشهداء، نحمل وصاياهم ونروي قصصهم للأجيال القادمة.</p>
+        </footer>
+    </div>
+  );
+};
+
+export default InterviewsPage;

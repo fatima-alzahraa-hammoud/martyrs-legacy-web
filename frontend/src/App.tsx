@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import NavBar from "./pages/NavBar";
+import MartyrsPage from "./pages/MartyrsPage";
 
 const App: React.FC = () => {
     return(
@@ -14,6 +15,8 @@ const App: React.FC = () => {
                 <Route path="/login" element={<Login />} />  
                 <Route path="/register" element={<Register />} />  
                 <Route path="/" element={<Home />} />  
+                <Route path="/martyrs" element={<div>Martyrs Page</div>} />
+
             </Routes>
         </div>
     );
