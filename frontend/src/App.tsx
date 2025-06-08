@@ -8,6 +8,7 @@ import NavBar from "./pages/NavBar";
 import MartyrsPage from "./pages/MartyrsPage";
 import InterviewsPage from "./pages/InterviewsPage";
 import MartyrsStoriesPage from "./pages/MartyrsStoriesPage";
+import MartyrsWillsPage from "./pages/MartyrsWillsPage";
 
 
 const App: React.FC = () => {
@@ -21,6 +22,7 @@ const App: React.FC = () => {
                 <Route path="/martyrs" element={<MartyrsPage />} />
                 <Route path="/interviews" element={<InterviewsPage />} />
                 <Route path="/stories" element={<MartyrsStoriesPage />} />
+                <Route path="/wills" element={<MartyrsWillsPage />} />
             </Routes>
         </div>
     );
