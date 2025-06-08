@@ -1,5 +1,13 @@
 import React from "react";
 
+type Martyr = {
+  id: number;
+  first_name: string;
+  father_name: string;
+  last_name: string;
+  martyrdom_date: string;
+};
+
 const MartyrsPage: React.FC=()=>{
 
     return(
