@@ -95,6 +95,16 @@ const Home: React.FC = () => {
                 </form>
             </div>
 
+            {/* Footer */}
+            <footer>
+                <p>جميع الحقوق محفوظة &copy; 2023</p>
+                <p>تابعونا على وسائل التواصل الاجتماعي</p>
+                <ul>
+                    <li><a href="#">فيسبوك</a></li>
+                    <li><a href="#">تويتر</a></li>
+                    <li><a href="#">إنستغرام</a></li>
+                </ul>
+            </footer>
         </div>
     );
 }
