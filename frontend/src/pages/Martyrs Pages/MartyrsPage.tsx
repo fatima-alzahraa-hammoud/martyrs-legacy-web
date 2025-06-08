@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import Sidebar from "./SideBar";
+import Sidebar from "../SideBar";
 
 type Martyr = {
   id: number;

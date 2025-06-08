@@ -5,10 +5,10 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import NavBar from "./pages/NavBar";
-import MartyrsPage from "./pages/MartyrsPage";
-import InterviewsPage from "./pages/InterviewsPage";
-import MartyrsStoriesPage from "./pages/MartyrsStoriesPage";
-import MartyrsWillsPage from "./pages/MartyrsWillsPage";
+import MartyrsPage from "./pages/Martyrs Pages/MartyrsPage";
+import InterviewsPage from "./pages/Martyrs Pages/InterviewsPage";
+import MartyrsStoriesPage from "./pages/Martyrs Pages/MartyrsStoriesPage";
+import MartyrsWillsPage from "./pages/Martyrs Pages/MartyrsWillsPage";
 
 
 const App: React.FC = () => {

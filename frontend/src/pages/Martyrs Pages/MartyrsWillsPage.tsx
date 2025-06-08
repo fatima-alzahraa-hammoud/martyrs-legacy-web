@@ -1,5 +1,5 @@
 import React from "react";
-import Sidebar from "./SideBar";
+import Sidebar from "../SideBar";
 
 type Will = {
   id: number;
