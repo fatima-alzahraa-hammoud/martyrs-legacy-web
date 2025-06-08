@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { requestApi } from "../utils/requestAPI";
 import { requestMethods } from "../utils/requestMethod";
+
 const Register: React.FC = () => {
+
   const [form, setRegisterForm] = useState({
         name:"",
         email: "",
         password: "",
-        phone_number:""
+        phone_number:"",
+        confirm_password: "",
     });
+
     const Register = async(e: { preventDefault: () => void; }) =>{ 
         e.preventDefault(); 
         console.log("Register function called");
@@ -62,6 +66,17 @@ const Register: React.FC = () => {
                             })
                         } 
                         required placeholder="Enter Your Password"/>
+                </div>
+                <div>
+                    <label htmlFor="confirm-password">Confirm Password:</label>
+                    <input 
+                        type="confirm-password" id="confirm-password" name="confirm-password" 
+                        onChange={
+                            (e) => setRegisterForm((prev) =>{
+                                return {...prev, confirm_password: e.target.value};
+                            })
+                        } 
+                        required placeholder="Confirm Your Password"/>
                 </div>
                 <div>
                     <label htmlFor="phone_number">Phone Number:</label>
