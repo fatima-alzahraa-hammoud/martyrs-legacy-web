@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 
 type Martyr = {
   id: number;
@@ -9,6 +10,7 @@ type Martyr = {
 };
 
 const MartyrsPage: React.FC=()=>{
+  const [martyrs, setMartyrs] = useState<Martyr[]>([]);
 
     return(
         <div>
