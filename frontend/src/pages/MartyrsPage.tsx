@@ -6,7 +6,9 @@ type Martyr = {
   first_name: string;
   father_name: string;
   last_name: string;
+  full_name: string
   martyrdom_date: string;
+  image_url: string;
 };
 
 const MartyrsPage: React.FC=()=>{
