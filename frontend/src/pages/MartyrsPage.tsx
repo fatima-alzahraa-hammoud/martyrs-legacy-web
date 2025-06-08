@@ -12,6 +12,16 @@ const MartyrsPage: React.FC=()=>{
           نسرد قصصهم ونخلّد ذكراهم ليبقى نهجهم حيًّا في قلوبنا ووجداننا.
         </p>
       </header>
+      <section>
+        {martyrs.map((martyr) => (
+          <div key={martyr.id}>
+            <img src={martyr.image_url} alt={martyr.full_name} />
+            <h3>{martyr.full_name}</h3>
+            <p>تاريخ الاستشهاد: {martyr.martyrdom_date}</p>
+            <button>اقرأ المزيد</button>
+          </div>
+        ))}
+      </section>
 
         </div>
     );
