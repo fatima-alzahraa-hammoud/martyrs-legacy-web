@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import NavBar from "./pages/NavBar";
 import MartyrsPage from "./pages/MartyrsPage";
 import InterviewsPage from "./pages/InterviewsPage";
+import MartyrsStoriesPage from "./pages/MartyrsStoriesPage";
 
 
 const App: React.FC = () => {
@@ -19,7 +20,7 @@ const App: React.FC = () => {
                 <Route path="/" element={<Home />} />  
                 <Route path="/martyrs" element={<MartyrsPage />} />
                 <Route path="/interviews" element={<InterviewsPage />} />
-
+                <Route path="/stories" element={<MartyrsStoriesPage />} />
             </Routes>
         </div>
     );
