@@ -59,6 +59,20 @@ const Home: React.FC = () => {
                 </div>
             </div>
 
+            {/* Last Added Martyrs */}
+            <div>
+                <h2>آخر الشهداء المضافين</h2>
+                <p>هنا تجدون آخر الشهداء الذين تم إضافتهم إلى موقعنا. نحن نعمل جاهدين لتحديث قاعدة بياناتنا بشكل دوري لضمان تقديم المعلومات الأكثر دقة وشمولية.</p>
+                {/* List of martyrs */}
+                <ul>
+                    {martyrs.map((martyr, index) => (
+                        <li key={index}>
+                            <h3>{martyr.name}</h3>
+                            <p>{martyr.description}</p>
+                        </li>
+                    ))}
+                </ul>
+            </div>
 
             
         </div>
