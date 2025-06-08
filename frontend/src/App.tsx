@@ -6,6 +6,8 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import NavBar from "./pages/NavBar";
 import MartyrsPage from "./pages/MartyrsPage";
+import InterviewsPage from "./pages/InterviewsPage";
+
 
 const App: React.FC = () => {
     return(
@@ -16,6 +18,7 @@ const App: React.FC = () => {
                 <Route path="/register" element={<Register />} />  
                 <Route path="/" element={<Home />} />  
                 <Route path="/martyrs" element={<div>Martyrs Page</div>} />
+                <Route path="/interviews" element={<InterviewsPage />} />
 
             </Routes>
         </div>

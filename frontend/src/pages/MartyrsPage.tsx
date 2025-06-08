@@ -26,7 +26,16 @@ const MartyrsPage: React.FC=()=>{
         </p>
       </header>
       <SideBar />
+      <div>
+          <button>
+            إضافة شهيد
+          </button>
+          <button>
+            بحث عن شهيد
+          </button>
+        </div>
       <section>
+        <h2>قائمة الشهداء</h2>
         {martyrs.map((martyr) => (
           <div key={martyr.id}>
             <img src={martyr.image_url} alt={martyr.full_name} />
