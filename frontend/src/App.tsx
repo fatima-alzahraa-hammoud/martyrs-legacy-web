@@ -6,9 +6,9 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import NavBar from "./pages/NavBar";
 import MartyrsPage from "./pages/Martyrs Pages/MartyrsPage";
-import InterviewsPage from "./pages/Martyrs Pages/InterviewsPage";
-import MartyrsStoriesPage from "./pages/Martyrs Pages/MartyrsStoriesPage";
-import MartyrsWillsPage from "./pages/Martyrs Pages/MartyrsWillsPage";
+import InterviewsPage from "./pages/Martyrs Pages/Interviews";
+import MartyrsStoriesPage from "./pages/Martyrs Pages/MartyrsStories";
+import MartyrsWillsPage from "./pages/Martyrs Pages/MartyrsWills";
 
 
 const App: React.FC = () => {
