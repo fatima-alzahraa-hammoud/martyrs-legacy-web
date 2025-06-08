@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import SideBar from "./Sidebar";
 
 type Martyr = {
   id: number;
@@ -24,6 +25,7 @@ const MartyrsPage: React.FC=()=>{
           نسرد قصصهم ونخلّد ذكراهم ليبقى نهجهم حيًّا في قلوبنا ووجداننا.
         </p>
       </header>
+      <SideBar />
       <section>
         {martyrs.map((martyr) => (
           <div key={martyr.id}>
