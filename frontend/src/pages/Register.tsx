@@ -89,7 +89,7 @@ const Register: React.FC = () => {
                         } 
                         required placeholder="Enter Your Phone Number"/>
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit">Register</button>
             </form>
         </div>
     );
