@@ -54,7 +54,15 @@ const Login: React.FC = () => {
                         } 
                         required placeholder="Enter Your Password"/>
                 </div>
+                <div>
+                    <input type="checkbox" id="rememberMe" name="rememberMe" />
+                    <label htmlFor="rememberMe">Remember Me</label>
+                </div>
+                <div>
+                    <a href="/forgot-password">Forgot Password?</a>
+                </div>
                 <button type="submit">Login</button>
+                <p>Don't have an account? <a href="/register">Sign Up</a></p>
             </form>
         </div>
     );
