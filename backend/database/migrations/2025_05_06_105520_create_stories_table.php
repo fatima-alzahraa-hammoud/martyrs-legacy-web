@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('date');
             $table->boolean('updating')->default(false);
             $table->boolean('isUpdated')->default(false);
+            $table->boolean('isPublished')->default(false);
+            $table->string('date');
             $table->timestamps();
         });
     }
