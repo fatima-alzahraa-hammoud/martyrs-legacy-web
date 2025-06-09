@@ -1,10 +1,6 @@
 import React from "react";
 import Sidebar from "../SideBar";
-
-type Interview = {
-  title: string;
-  date: string;
-};
+import type { Interview } from "../../types/types";
 
 const InterviewsPage: React.FC = () => {
   const interviews: Interview[] = [];
