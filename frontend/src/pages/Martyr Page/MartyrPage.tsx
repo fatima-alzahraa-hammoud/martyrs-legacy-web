@@ -1,24 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-interface Martyr {
-    name: string;
-    first_name: string;
-    last_name: string;
-    father_name: string;
-    mother_name: string;
-    place_of_birth: string;
-    birth_date: string;
-    martyrdom_date: string;
-    burial_place: string;
-    status: string;
-    marital_status: string;
-    nb_of_childen: number;
-    related_phone_nb: string;
-    image: string;
-    bio: string;
-    famous_quote: string;
-}
+import type { Martyr } from "../../types/types";
 
 const MartyrPage: React.FC = () => {
 
