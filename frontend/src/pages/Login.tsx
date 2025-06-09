@@ -55,10 +55,10 @@ const Login: React.FC = () => {
                             <img src={martyrLogo} className="w-3xl h-3xl text-white" />
                         </div>
                         <h1 className="text-3xl font-bold text-amber-900 mb-2 animate-slide-up">
-                            أهلاً وسهلاً بعودتك
+                            أهلًا وسهلًا بعودتك
                         </h1>
                         <p className="text-amber-700/70 text-sm animate-slide-up delay-100">
-                            تسجيل الدخول إلى مشروع الشهداء
+                            تسجيل الدخول إلى عالم الشهداء
                         </p>
                     </div>
 
@@ -192,7 +192,7 @@ const Login: React.FC = () => {
                     <div className="text-center mt-8 opacity-70 animate-fade-in delay-1000">
                         <div className="flex items-center justify-center text-amber-600">
                             <Heart className="w-4 h-4 mr-1 fill-current animate-pulse" />
-                            <span className="text-sm">مشروع تكريم الشهداء</span>
+                            <span className="text-sm">مشروع إرث الشهداء</span>
                         </div>
                     </div>
                 </div>
