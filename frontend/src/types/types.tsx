@@ -40,12 +40,6 @@ export interface Story {
   image_url?: string | null;
 };
 
-export interface Will  {
-    id: number;
-    martyr_id:number;
-    date:number;
-};
-
 export interface MediaItem {
     id: number;
     file_path: string;
@@ -55,4 +49,18 @@ export interface MediaItem {
     file_description: string;
     file_date: string;
     file_location?: string | null;
+}
+
+export interface MartyrWill {
+    id: number;
+    martyr_id: number;
+    user_id: number;
+    title: string;
+    description: string;
+    document_type: "will" | "letter" | "audio_message" | "video_message";
+    content: string;
+    date: string;
+    video_id?: number | null;
+    audio_id?: number | null;
+    image_id?: number | null;
 }

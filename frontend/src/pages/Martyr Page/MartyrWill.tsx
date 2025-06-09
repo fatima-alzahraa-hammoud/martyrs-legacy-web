@@ -1,17 +1,5 @@
 import React, { useState } from "react";
-
-interface MartyrWill {
-    martyr_id: number;
-    user_id: number;
-    title: string;
-    description: string;
-    document_type: "will" | "letter" | "audio_message" | "video_message";
-    content: string;
-    date: string;
-    video_id?: number | null;
-    audio_id?: number | null;
-    image_id?: number | null;
-}
+import type { MartyrWill } from "../../types/types";
 
 const recipientLabels: Record<string, string> = {
     mother: "الأم",

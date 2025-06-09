@@ -1,9 +1,9 @@
 import React from "react";
 import Sidebar from "../SideBar";
-import type { Will } from "../../types/types";
+import type { MartyrWill } from "../../types/types";
 
 const MartyrsWillsPage: React.FC = () => {
-  const [wills, setWills] = React.useState<Will[]>([
+  const [wills, setWills] = React.useState<MartyrWill[]>([
   ]);
 
   return (
