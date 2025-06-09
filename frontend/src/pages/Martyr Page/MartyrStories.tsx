@@ -1,13 +1,6 @@
 import React, { useState } from "react";
+import type { Story } from "../../types/types";
 
-// نوع القصة
-interface Story {
-  id: number;
-  title: string;
-  description: string;
-  created_at: string;
-  image_url?: string | null; // رابط للصورة إن وُجد
-}
 
 const MartyrStories: React.FC = () => {
     const [stories, setStories] = useState<Story[]>([]);
