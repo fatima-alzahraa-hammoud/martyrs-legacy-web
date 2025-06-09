@@ -1,6 +1,15 @@
 import React, { useState } from "react";
 import { requestApi } from "../utils/requestAPI";
 import { requestMethods } from "../utils/requestMethod";
+import { Eye, EyeOff, Heart, Lock, Mail, Phone, User, UserPlus } from "lucide-react";
+
+interface Errors  {
+    name?: string;
+    email?: string;
+    password?: string;
+    confirm_password?: string;
+    phone_number?: string;
+};
 
 const Register: React.FC = () => {
 
@@ -12,10 +21,52 @@ const Register: React.FC = () => {
         confirm_password: "",
     });
 
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    
+
+    const [errors, setErrors] = useState<Errors>({});
+
+    const validateForm = () => {
+        const newErrors: Errors = {};
+
+        if (!form.name.trim()) {
+            newErrors.name = "الاسم مطلوب";
+        }
+
+        if (!form.email.trim()) {
+            newErrors.email = "البريد الإلكتروني مطلوب";
+        } else if (!/\S+@\S+\.\S+/.test(form.email)) {
+            newErrors.email = "البريد الإلكتروني غير صحيح";
+        }
+
+        if (!form.password) {
+            newErrors.password = "كلمة المرور مطلوبة";
+        } else if (form.password.length < 6) {
+            newErrors.password = "كلمة المرور يجب أن تكون 6 أحرف على الأقل";
+        }
+
+        if (!form.confirm_password) {
+            newErrors.confirm_password = "تأكيد كلمة المرور مطلوب";
+        } else if (form.password !== form.confirm_password) {
+            newErrors.confirm_password = "كلمات المرور غير متطابقة";
+        }
+
+        if (!form.phone_number.trim()) {
+            newErrors.phone_number = "رقم الهاتف مطلوب";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
     const Register = async(e: { preventDefault: () => void; }) =>{ 
         e.preventDefault(); 
-        console.log("Register function called");
-
+        if (!validateForm()) {
+            return;
+        }
+        setIsLoading(true);
         try {
             const response = await requestApi({
                 route: "auth/register",
@@ -23,11 +74,21 @@ const Register: React.FC = () => {
                 body: JSON.stringify(form),
             });
             console.log(response.data.message);
-            
         } catch (error : any) {
-            
+            // handle error if needed
+        } finally {
+            setIsLoading(false);
         }
     }
+
+    const handleInputChange = (field: keyof Errors, value: string) => {
+        setRegisterForm(prev => ({ ...prev, [field]: value }));
+        // Clear error when user starts typing
+        if (errors[field]) {
+            setErrors(prev => ({ ...prev, [field]: "" }));
+        }
+    };
+    
      return(
         <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md mx-auto">
@@ -40,7 +101,6 @@ const Register: React.FC = () => {
                     <h2 className="text-xl font-semibold text-amber-700 mb-2">إنشاء حساب جديد</h2>
                     <p className="text-amber-600">انضم إلينا لتكريم ذكرى الشهداء الأبرار</p>
                 </div>
-
                 {/* Form */}
                 <div className="bg-white rounded-2xl shadow-xl p-8 border border-amber-200">
                     <div className="space-y-6">
@@ -93,7 +153,6 @@ const Register: React.FC = () => {
                             </div>
                             {errors.email && <p className="mt-1 text-sm text-red-600 text-right">{errors.email}</p>}
                         </div>
-
                         {/* Phone Field */}
                         <div>
                             <label htmlFor="phone_number" className="block text-sm font-medium text-amber-800 mb-2 text-right">
@@ -152,7 +211,7 @@ const Register: React.FC = () => {
                             </div>
                             {errors.password && <p className="mt-1 text-sm text-red-600 text-right">{errors.password}</p>}
                         </div>
-
+                        
                         {/* Confirm Password Field */}
                         <div>
                             <label htmlFor="confirm-password" className="block text-sm font-medium text-amber-800 mb-2 text-right">
@@ -191,7 +250,7 @@ const Register: React.FC = () => {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            onClick={handleRegister}
+                            onClick={Register}
                             className={`w-full flex items-center justify-center space-x-2 rtl:space-x-reverse py-3 px-4 border border-transparent rounded-lg text-white font-medium transition-all duration-200 ${
                                 isLoading
                                     ? 'bg-amber-400 cursor-not-allowed'
@@ -211,7 +270,6 @@ const Register: React.FC = () => {
                             )}
                         </button>
                     </div>
-
                     {/* Login Link */}
                     <div className="mt-6 text-center">
                         <p className="text-amber-600">
@@ -227,9 +285,7 @@ const Register: React.FC = () => {
                 </div>
             </div>
         </div>
-     )
-}
+    );
+};
+
 export default Register;
-
-
-
