@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-
-export interface Story {
-  id: number;
-  title: string;
-  description: string;
-  date: string;
-}
+import type { Story } from "../../types/types";
 
 const AlSayyedStories: React.FC = () => {
     const [stories, setStories] = useState<Story[]>([]);

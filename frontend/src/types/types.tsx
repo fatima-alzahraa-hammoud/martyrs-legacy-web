@@ -34,10 +34,11 @@ export interface Interview {
 
 export interface Story {
     id: number;
-  title: string;
-  description: string;
-  created_at: string;
-  image_url?: string | null;
+    title: string;
+    description: string;
+    created_at: string;
+    date: string;
+    image_url?: string | null;
 };
 
 export interface MediaItem {
