@@ -1,16 +1,7 @@
 import React, { useState } from "react";
+import type { Interview } from "../../types/types";
 
-interface Interview {
-    id: number;
-    title: string;
-    description: string;
-    content: string;
-    date: string;
-    document_type: "interview" | "letter" | "audio_message" | "video_message";
-    video_url?: string | null;
-    audio_url?: string | null;
-    image_url?: string | null;
-}
+
 
 const MartyrInterviews: React.FC = () => {
     const [interviews, setInterviews] = useState<Interview[]>([]);

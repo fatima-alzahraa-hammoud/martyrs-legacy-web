@@ -11,8 +11,15 @@ export interface Martyr {
 };
 
 export interface Interview {
+    id: number;
     title: string;
+    description: string;
+    content: string;
     date: string;
+    document_type: "interview" | "letter" | "audio_message" | "video_message";
+    video_url?: string | null;
+    audio_url?: string | null;
+    image_url?: string | null;
 };
 
 export interface Story {
