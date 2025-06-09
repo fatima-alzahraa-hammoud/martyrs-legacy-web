@@ -19,3 +19,9 @@ export interface Story {
     title: string;
     description: string;
 };
+
+export interface Will  {
+    id: number;
+    martyr_id:number;
+    date:number;
+};

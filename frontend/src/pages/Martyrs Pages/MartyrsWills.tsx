@@ -1,11 +1,6 @@
 import React from "react";
 import Sidebar from "../SideBar";
-
-type Will = {
-  id: number;
-  martyr_id:number;
-  date:number;
-};
+import type { Will } from "../../types/types";
 
 const MartyrsWillsPage: React.FC = () => {
   const [wills, setWills] = React.useState<Will[]>([
