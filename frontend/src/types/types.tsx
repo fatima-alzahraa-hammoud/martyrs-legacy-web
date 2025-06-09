@@ -25,3 +25,14 @@ export interface Will  {
     martyr_id:number;
     date:number;
 };
+
+export interface MediaItem {
+    id: number;
+    file_path: string;
+    file_name: string;
+    file_type: "photo" | "video" | "audio";
+    file_kind: "interviews" | "identity" | "personal";
+    file_description: string;
+    file_date: string;
+    file_location?: string | null;
+}

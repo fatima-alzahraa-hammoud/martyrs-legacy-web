@@ -1,15 +1,6 @@
 import React, { useState } from "react";
+import type { MediaItem } from "../../types/types";
 
-interface MediaItem {
-  id: number;
-  file_path: string;
-  file_name: string;
-  file_type: "photo" | "video" | "audio";
-  file_kind: "interviews" | "identity" | "personal";
-  file_description: string;
-  file_date: string;
-  file_location?: string | null;
-}
 
 const MartyrAlbumPage: React.FC = () => {
     const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
