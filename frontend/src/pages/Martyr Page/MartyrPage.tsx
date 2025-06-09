@@ -24,6 +24,18 @@ const MartyrPage: React.FC = () => {
 
     const [martyr, setMartyr] = useState<Martyr | null>(null);
 
+    const calculateAge = (birth: string, death: string): number => {
+        const birthDate = new Date(birth);
+        const deathDate = new Date(death);
+        let age = deathDate.getFullYear() - birthDate.getFullYear();
+        const m = deathDate.getMonth() - birthDate.getMonth();
+        
+        if (m < 0 || (m === 0 && deathDate.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    };
+
     return (
         <div>
             <div>
@@ -49,6 +61,7 @@ const MartyrPage: React.FC = () => {
                         <li><strong>تاريخ الولادة:</strong> {martyr?.birth_date}</li>
                         <li><strong>مكان الولادة:</strong> {martyr?.place_of_birth}</li>
                         <li><strong>تاريخ الاستشهاد:</strong> {martyr?.martyrdom_date}</li>
+                        <li><strong>العمر عند الاستشهاد:</strong> {martyr ? calculateAge(martyr.birth_date, martyr.martyrdom_date) : "غير متوفر"} سنة</li>
                         <li><strong>مكان الدفن:</strong> {martyr?.burial_place}</li>
                         <li><strong>الحالة:</strong> {martyr?.status}</li>
                         <li><strong>الحالة الاجتماعية:</strong> {martyr?.marital_status}</li>
