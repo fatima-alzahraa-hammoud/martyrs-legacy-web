@@ -1,6 +1,13 @@
 export interface Martyr {
-        name: string;
-        description: string;
+    id: number;
+    name: string;
+    first_name: string;
+    father_name: string;
+    last_name: string;
+    full_name: string
+    description: string;
+    martyrdom_date: string;
+    image_url: string;
 };
 
 export interface Interview {
