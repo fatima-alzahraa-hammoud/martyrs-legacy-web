@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('father_name');
             $table->date('birth_date');
             $table->date('martyrdom_date');
+            $table->string('place_of_birth');
+            $table->text('bio');
+            $table->string('famous_quote')->nullable();
             $table->string('burial_place');
             $table->enum('status', ['martyr', 'missing', 'detained'])->default('martyr');
             $table->enum('marital_status', ['single', 'engaged', 'married', 'widowed'])->default('single');

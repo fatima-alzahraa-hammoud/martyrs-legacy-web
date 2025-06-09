@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('martyr_id')->constrained('martyrs')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users');
+            $table->string("outlet");
             $table->string('title');
             $table->text('description');
             $table->enum('document_type', ['interview', 'letter', 'audio_message', 'video_message']);
