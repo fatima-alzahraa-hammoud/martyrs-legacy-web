@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-
-export interface Speech {
-  id: number;
-  title: string;
-  description: string;
-  date: string;
-}
+import type { Speech } from "../../types/types";
 
 const Speeches: React.FC = () => {
     const [speeches, setSpeeches] = useState<Speech[]>([]);

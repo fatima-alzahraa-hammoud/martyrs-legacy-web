@@ -65,3 +65,10 @@ export interface MartyrWill {
     audio_id?: number | null;
     image_id?: number | null;
 }
+
+export interface Speech {
+    id: number;
+    title: string;
+    description: string;
+    date: string;
+}
