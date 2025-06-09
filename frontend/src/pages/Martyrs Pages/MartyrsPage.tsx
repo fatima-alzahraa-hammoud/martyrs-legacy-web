@@ -1,16 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Sidebar from "../SideBar";
-
-type Martyr = {
-  id: number;
-  first_name: string;
-  father_name: string;
-  last_name: string;
-  full_name: string
-  martyrdom_date: string;
-  image_url: string;
-};
+import type { Martyr } from "../../types/types";
 
 const MartyrsPage: React.FC=()=>{
   const [martyrs, setMartyrs] = useState<Martyr[]>([]);
