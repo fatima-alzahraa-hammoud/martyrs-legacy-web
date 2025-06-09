@@ -13,7 +13,7 @@ import MartyrPage from "./pages/Martyr Page/MartyrPage";
 import MartyrWill from "./pages/Martyr Page/MartyrWill";
 import MartyrStories from "./pages/Martyr Page/MartyrStories";
 import MartyrInterviewsPage from "./pages/Martyr Page/MartyrInterviews";
-import MartyrAlbumPage from "./pages/Martyr Page/MartyrMedias";
+import MartyrAlbumPage from "./pages/Martyr Page/MartyrAlbum";
 
 const App: React.FC = () => {
     return(
