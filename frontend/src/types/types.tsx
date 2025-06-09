@@ -3,6 +3,7 @@ export interface Martyr {
     name: string;
     first_name: string;
     father_name: string;
+    mother_name: string;
     last_name: string;
     full_name: string
     description: string;
