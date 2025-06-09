@@ -11,6 +11,11 @@ export interface Martyr {
 };
 
 export interface Interview {
-  title: string;
-  date: string;
+    title: string;
+    date: string;
+};
+
+export interface Story {
+    title: string;
+    description: string;
 };

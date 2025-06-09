@@ -1,10 +1,8 @@
 import React from "react";
 import Sidebar from "../SideBar";
+import type { Story } from "../../types/types";
 
-type Story = {
-  title: string;
-  description: string;
-};
+
 
 const MartyrsStoriesPage: React.FC = () => {
   const [stories, setStories] = React.useState<Story[]>([
