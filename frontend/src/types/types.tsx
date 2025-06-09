@@ -30,6 +30,7 @@ export interface Interview {
     video_url?: string | null;
     audio_url?: string | null;
     image_url?: string | null;
+    outlet: string;
 };
 
 export interface Story {
