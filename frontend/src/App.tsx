@@ -12,6 +12,7 @@ import MartyrsWillsPage from "./pages/Martyrs Pages/MartyrsWills";
 import MartyrPage from "./pages/Martyr Page/MartyrPage";
 import MartyrWill from "./pages/Martyr Page/MartyrWill";
 import MartyrStories from "./pages/Martyr Page/MartyrStories";
+import MartyrInterviewsPage from "./pages/Martyr Page/MartyrInterviews";
 
 const App: React.FC = () => {
     return(
@@ -28,6 +29,7 @@ const App: React.FC = () => {
                 <Route path="/martyr" element={<MartyrPage /> } />
                 <Route path="/martyr/will" element={<MartyrWill /> } />
                 <Route path="/martyr/stories" element={<MartyrStories /> } />
+                <Route path="/martyr/interviews" element={<MartyrInterviewsPage /> } />
             </Routes>
         </div>
     );
