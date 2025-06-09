@@ -1,9 +1,5 @@
 import React from "react";
-
-type Martyr = {
-        name: string;
-        description: string;
-};
+import type { Martyr } from "../types/types";
 
 const Home: React.FC = () => {
 
