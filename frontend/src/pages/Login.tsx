@@ -39,7 +39,7 @@ const Login: React.FC = () => {
     }
 
     return(
-        <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 flex overflow-hidden">
+        <div className="min-h-screen flex overflow-hidden">
             {/* Floating particles background */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-10 left-1/4 w-2 h-2 bg-amber-400/30 rounded-full animate-bounce delay-1000"></div>
