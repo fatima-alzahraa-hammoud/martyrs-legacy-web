@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('video_id')->nullable()->constrained('medias');
             $table->foreignId('audio_id')->nullable()->constrained('medias');
             $table->foreignId('image_id')->nullable()->constrained('medias');
-            $table->text('content');
+            $table->json('content');
             $table->date('date');
             $table->timestamps();
         });
