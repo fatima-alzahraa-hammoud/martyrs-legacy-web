@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Menu, X, Heart, Users, Home, User, Phone, LogIn, UserPlus, LogOut, ChevronDown } from "lucide-react";
 import martyrLogo from "../../public/images/martyrs-legacy-logo-removebg.png";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { requestApi } from "../utils/requestAPI";
+import { requestMethods } from "../utils/requestMethod";
 
 interface User {
     id: string;
@@ -97,12 +99,26 @@ const NavBar: React.FC = () => {
     };
 
     // Handle logout
-    const handleLogout = () => {
-        sessionStorage.removeItem("token");
-        setUser(null);
-        setIsMenuOpen(false);
-        setIsProfileDropdownOpen(false);
-        navigate('/');
+    const handleLogout = async() => {
+        try {
+            const response = await requestApi({
+                route: "auth/logout",
+                method: requestMethods.POST,
+            });
+            console.log(response);
+            if (response.status === "success") {
+                sessionStorage.removeItem("token");
+                setUser(null);
+                setIsMenuOpen(false);
+                setIsProfileDropdownOpen(false);
+                navigate('/');
+            }
+            else{
+                console.log("something wrong happend");
+            }
+        } catch (error : any) {
+            // handle error if needed
+        }
     };
 
     // Public method to refresh user state (can be called from login component)
