@@ -5,7 +5,6 @@ export interface Martyr {
     father_name: string;
     mother_name: string;
     last_name: string;
-    full_name: string
     description: string;
     place_of_birth: string;
     birth_date: string;

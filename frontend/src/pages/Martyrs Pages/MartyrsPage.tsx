@@ -69,7 +69,7 @@ const MartyrsPage: React.FC = () => {
                       {martyr.image ? (
                         <img 
                           src={martyr.image} 
-                          alt={martyr.full_name}
+                          alt={martyr.name}
                           className="w-full h-full object-cover"
                         />
                       ) : (
@@ -79,7 +79,7 @@ const MartyrsPage: React.FC = () => {
                       )}
                     </div>
                     <h3 className="text-xl font-bold text-amber-800 mb-2 font-arabic">
-                      {martyr.full_name}
+                      {martyr.name}
                     </h3>
                     <div className="flex items-center justify-center space-x-2 rtl:space-x-reverse text-amber-600 mb-4">
                       <Calendar className="h-4 w-4" />
