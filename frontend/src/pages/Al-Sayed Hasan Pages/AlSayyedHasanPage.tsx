@@ -26,7 +26,7 @@ const AlSayyedHasanPage = () => {
             icon={<Users className="h-10 w-10 text-amber-600" />}
             title="لقاءات خاصة"
             description="مجموعة من اللقاءات الحصرية التي سلطت الضوء على شخصية الأمين."
-            href="/alsayyedhasan/interviews"
+            href="/al-sayed-hasan/interviews"
             delay="delay-300"
           />
 
@@ -35,7 +35,7 @@ const AlSayyedHasanPage = () => {
             icon={<Mic className="h-10 w-10 text-orange-600" />}
             title="الخطابات"
             description="أهم الكلمات والخطب التي ألقاها في محطات مختلفة."
-            href="/alsayyedhasan/speeches"
+            href="/al-sayed-hasan/speeches"
             delay="delay-500"
           />
 
@@ -44,7 +44,7 @@ const AlSayyedHasanPage = () => {
             icon={<Image className="h-10 w-10 text-yellow-600" />}
             title="ألبوم الصور"
             description="لحظات مُضيئة من حياته في صور نادرة ومؤثرة."
-            href="/alsayyedhasan/album"
+            href="/al-sayed-hasan/album"
             delay="delay-700"
           />
 
@@ -53,7 +53,7 @@ const AlSayyedHasanPage = () => {
             icon={<BookOpen className="h-10 w-10 text-amber-500" />}
             title="قصص وشهادات"
             description="قصص حية وشهادات من رفاقه وأحبائه عنه."
-            href="/alsayyedhasan/stories"
+            href="/al-sayed-hasan/stories"
             delay="delay-900"
           />
         </div>
