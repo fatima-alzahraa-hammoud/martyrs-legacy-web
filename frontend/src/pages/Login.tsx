@@ -4,12 +4,15 @@ import { requestMethods } from "../utils/requestMethod";
 import martyrImage from "../assets/images/martyr_login.jpg"; 
 import martyrLogo from "../../public/images/martyrs-legacy-logo-removebg.png";
 import { Eye, EyeOff, Heart } from "lucide-react"; 
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
     const [form, setLoginForm] = useState({
         email: "",
         password: "",
     });
+
+    const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +26,7 @@ const Login: React.FC = () => {
 
     const login = async(e: { preventDefault: () => void; }) =>{ 
         e.preventDefault(); 
-        console.log("Login function called");
+        setIsLoading(true);
 
         try {
             const response = await requestApi({
@@ -31,10 +34,18 @@ const Login: React.FC = () => {
                 method: requestMethods.POST,
                 body: JSON.stringify(form),
             });
-            console.log(response.data.message);
-            
+            if (response.status === "success") {
+                sessionStorage.setItem("token", response.token);
+                navigate('/martyrs');
+            }
+            else{
+                console.log(response.message);
+            }
+            setMessage(response.message);
         } catch (error : any) {
-            
+            console.log("Error Catched");
+        }finally {
+            setIsLoading(false);
         }
     }
 
