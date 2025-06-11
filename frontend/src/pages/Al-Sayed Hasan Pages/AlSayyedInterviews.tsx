@@ -12,7 +12,7 @@ const mockInterviews = [
     outlet: "قناة الميادين",
     content : "في هذه المقابلة، نتحدث عن الأوضاع الإقليمية والدولية وتأثيرها على الأمن القومي...",
     date: "2024-03-15",
-    video_url: "https://www.youtube.com/watch?v=_k36sB6olWc",
+    video_url: "https://youtu.be/_k36sB6olWc?si=6eyXIimSud5FqBEH",
     duration: "45:30",
     views: "2.5M"
   },
@@ -60,6 +60,12 @@ const getTypeLabel = (type: Interview["document_type"]) => {
 const InterviewCard: React.FC<{ item: Interview; index: number }> = ({ item, index }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const typeInfo = getTypeLabel(item.document_type);
+
+  const getYoutubeId = (url: string): string | null => {
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^&?]+)/);
+    return match ? match[1] : null;
+  };
+
 
   return (
     <div 
@@ -120,23 +126,17 @@ const InterviewCard: React.FC<{ item: Interview; index: number }> = ({ item, ind
         {/* Media Content */}
         {item.video_url && (
           <div className="relative group/video">
-            <div className="relative bg-black rounded-2xl overflow-hidden shadow-2xl">
-              <video
-                controls
-                className="w-full max-h-[400px] object-cover"
-                poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='400'%3E%3Crect width='100%25' height='100%25' fill='%23f3f4f6'/%3E%3Ctext x='50%25' y='50%25' font-size='20' text-anchor='middle' dy='.3em' fill='%236b7280'%3E🎬 انقر للتشغيل%3C/text%3E%3C/svg%3E"
-              >
-                <source src={item.video_url} type="video/mp4" />
-            
-              </video>
-              
-              {/* Play overlay */}
-              <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover/video:opacity-100 transition-opacity duration-300">
-                <div className="bg-white/90 rounded-full p-4 transform hover:scale-110 transition-transform">
-                  <Play className="w-8 h-8 text-amber-600 mr-1" />
-                </div>
-              </div>
+            <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl">
+            <iframe
+                className="w-full h-full"
+                src={`https://www.youtube.com/embed/${getYoutubeId(item.video_url)}`}
+                title={item.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+            ></iframe>
             </div>
+
           </div>
         )}
 

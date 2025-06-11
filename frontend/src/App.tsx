@@ -40,7 +40,7 @@ const App: React.FC = () => {
                 <Route path="/al-sayed-hasan/speeches" element={<SayyedSpeeches /> } />
                 <Route path="/al-sayed-hasan/stories" element={<AlSayyedStories /> } />
                 <Route path="/al-sayed-hasan/album" element={<AlSayyedAlbum /> } />
-                <Route path="/al-sayed-hasan/interview" element={<AlSayyedInterviews /> } />
+                <Route path="/al-sayed-hasan/interviews" element={<AlSayyedInterviews /> } />
                 <Route path="/al-sayed-hasan" element={<AlSayyedHasanPage/>} />
             </Routes>
         </div>
