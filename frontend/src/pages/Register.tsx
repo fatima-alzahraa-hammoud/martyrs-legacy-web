@@ -84,14 +84,15 @@ const Register: React.FC = () => {
             console.log(response);
             if (response.status === "success") {
                 sessionStorage.setItem("token", response.token);
+                window.dispatchEvent(new Event('userLoggedIn'));
                 navigate('/martyrs');
             }
             else{
-                console.log("something wrong happend");
+                console.log(response.message);
             }
         } catch (error : any) {
-            // handle error if needed
-        } finally {
+            console.log("Error Catched");
+        }finally {
             setIsLoading(false);
         }
     }
