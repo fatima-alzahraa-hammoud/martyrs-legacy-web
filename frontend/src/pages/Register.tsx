@@ -4,6 +4,7 @@ import { requestMethods } from "../utils/requestMethod";
 import martyrImage from "../assets/images/martyr_register.jpg"; 
 import martyrLogo from "../../public/images/martyrs-legacy-logo-removebg.png";
 import { Eye, EyeOff, Heart, Lock, Mail, Phone, User, UserPlus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface Errors  {
     name?: string;
@@ -21,6 +22,8 @@ const Register: React.FC = () => {
         phone_number:"",
         password_confirmation: "",
     });
+
+    const navigate = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -78,7 +81,14 @@ const Register: React.FC = () => {
                 method: requestMethods.POST,
                 body: JSON.stringify(form),
             });
-            console.log(response.data.message);
+            console.log(response);
+            if (response.status === "success") {
+                sessionStorage.setItem("token", response.token);
+                navigate('/martyrs');
+            }
+            else{
+                console.log("hello world")
+            }
         } catch (error : any) {
             // handle error if needed
         } finally {
