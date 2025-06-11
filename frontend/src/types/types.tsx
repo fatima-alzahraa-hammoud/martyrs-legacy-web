@@ -87,4 +87,12 @@ export interface Speech {
     title: string;
     description: string;
     date: string;
+    duration: string;
+    category: string;
+    occasion: string;
+    audio_url?: string | null;
+    transcript_url?: string | null;
+    views?: string | null;
+    featured: boolean;
+    tags: string[];
 }
