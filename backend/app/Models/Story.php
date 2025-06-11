@@ -12,7 +12,6 @@ class Story extends Model
         'title',
         'description',
         'content',
-        'image_url',
         'author',
         'category',
         'readTime',
@@ -22,6 +21,9 @@ class Story extends Model
         'isUpdated',
         'isPublished',
         'date',
+        'image_id',
+        'video_id',
+        'audio_id',
     ];
 
     public function user()
