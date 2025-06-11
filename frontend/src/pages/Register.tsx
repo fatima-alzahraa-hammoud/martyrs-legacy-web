@@ -9,7 +9,7 @@ interface Errors  {
     name?: string;
     email?: string;
     password?: string;
-    confirm_password?: string;
+    password_confirmation?: string;
     phone_number?: string;
 };
 
@@ -19,7 +19,7 @@ const Register: React.FC = () => {
         email: "",
         password: "",
         phone_number:"",
-        confirm_password: "",
+        password_confirmation: "",
     });
 
     const [showPassword, setShowPassword] = useState(false);
@@ -48,14 +48,14 @@ const Register: React.FC = () => {
 
         if (!form.password) {
             newErrors.password = "كلمة المرور مطلوبة";
-        } else if (form.password.length < 6) {
-            newErrors.password = "كلمة المرور يجب أن تكون 6 أحرف على الأقل";
+        } else if (form.password.length < 8) {
+            newErrors.password = "كلمة المرور يجب أن تكون 8 أحرف على الأقل";
         }
 
-        if (!form.confirm_password) {
-            newErrors.confirm_password = "تأكيد كلمة المرور مطلوب";
-        } else if (form.password !== form.confirm_password) {
-            newErrors.confirm_password = "كلمات المرور غير متطابقة";
+        if (!form.password_confirmation) {
+            newErrors.password_confirmation = "تأكيد كلمة المرور مطلوب";
+        } else if (form.password !== form.password_confirmation) {
+            newErrors.password_confirmation = "كلمات المرور غير متطابقة";
         }
 
         if (!form.phone_number.trim()) {
@@ -273,17 +273,17 @@ const Register: React.FC = () => {
                                         type={showConfirmPassword ? "text" : "password"}
                                         id="confirm-password"
                                         name="confirm-password"
-                                        value={form.confirm_password}
-                                        onChange={(e) => handleInputChange('confirm_password', e.target.value)}
+                                        value={form.password_confirmation}
+                                        onChange={(e) => handleInputChange('password_confirmation', e.target.value)}
                                         className={`w-full pr-12 pl-12 py-3 bg-amber-50/50 border rounded-xl text-right placeholder-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300 hover:bg-amber-50/70 focus:scale-[1.02] focus:shadow-lg group-hover:border-amber-300 ${
-                                            errors.confirm_password ? 'border-red-300 bg-red-50/50' : 'border-amber-200'
+                                            errors.password_confirmation ? 'border-red-300 bg-red-50/50' : 'border-amber-200'
                                         }`}
                                         placeholder="أعد إدخال كلمة المرور"
                                         required
                                     />
                                     <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-amber-400/0 to-orange-400/0 group-hover:from-amber-400/5 group-hover:to-orange-400/5 transition-all duration-300 pointer-events-none"></div>
                                 </div>
-                                {errors.confirm_password && <p className="text-sm text-red-600 text-right animate-pulse">{errors.confirm_password}</p>}
+                                {errors.password_confirmation && <p className="text-sm text-red-600 text-right animate-pulse">{errors.password_confirmation}</p>}
                             </div>
 
                             {/* Submit Button */}
