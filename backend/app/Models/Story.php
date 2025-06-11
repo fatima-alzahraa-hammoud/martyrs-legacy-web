@@ -12,11 +12,18 @@ class Story extends Model
         'title',
         'description',
         'content',
+        'author',
+        'category',
+        'readTime',
+        'likes',
+        'featured',
         'updating',
         'isUpdated',
+        'isPublished',
+        'date',
         'image_id',
         'video_id',
-        'audio_id'
+        'audio_id',
     ];
 
     public function user()

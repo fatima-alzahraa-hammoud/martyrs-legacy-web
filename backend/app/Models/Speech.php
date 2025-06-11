@@ -6,8 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Speech extends Model
 {
-    protected $fillable=[
-        'martyr_id','user_id','title','description','document_type','video_id','audio_id','image_id','content','data'
+    protected $fillable = [
+        'martyr_id',
+        'user_id',
+        'title',
+        'description',
+        'document_type',
+        'video_id',
+        'audio_id',
+        'image_id',
+        'content',
+        'date',
+        'duration',
+        'category',
+        'occasion',
+        'audio_url',
+        'transcript_url',
+        'views',
+        'featured',
+        'tags',
     ];
 
     public function user()

@@ -127,7 +127,6 @@ const MartyrAlbumPage: React.FC = () => {
                                             <div className="w-full h-full relative">
                                                 <video 
                                                     className="w-full h-full object-cover"
-                                                    poster={item.thumbnail_path}
                                                 >
                                                     <source src={item.file_path} type="video/mp4" />
                                                 </video>

@@ -23,6 +23,14 @@ return new class extends Migration
             $table->foreignId('image_id')->nullable()->constrained('medias');
             $table->text('content');
             $table->date('date');
+            $table->string('duration')->nullable();
+            $table->string('category')->nullable();
+            $table->string('occasion')->nullable();
+            $table->string('audio_url')->nullable();
+            $table->string('transcript_url')->nullable();
+            $table->unsignedBigInteger('views')->nullable();
+            $table->boolean('featured')->default(false);
+            $table->json('tags')->nullable();
             $table->timestamps();
         });
     }

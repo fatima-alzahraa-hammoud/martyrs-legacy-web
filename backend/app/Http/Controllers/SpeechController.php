@@ -36,16 +36,24 @@ class SpeechController extends Controller
     public function createSpeech(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'martyr_id'      => 'required|exists:martyrs,id',
-            'user_id'        => 'required|exists:users,id',
-            'title'          => 'required|string|max:255',
-            'description'    => 'nullable|string',
-            'document_type'  => 'nullable|string|max:100',
-            'video_id'       => 'nullable|integer',
-            'audio_id'       => 'nullable|integer',
-            'image_id'       => 'nullable|integer',
-            'content'        => 'nullable|string',
-            'data'           => 'nullable|date'
+            'martyr_id'        => 'required|exists:martyrs,id',
+            'user_id'          => 'required|exists:users,id',
+            'title'            => 'required|string|max:255',
+            'description'      => 'nullable|string',
+            'document_type'    => 'nullable|string|max:100',
+            'video_id'         => 'nullable|integer',
+            'audio_id'         => 'nullable|integer',
+            'image_id'         => 'nullable|integer',
+            'content'          => 'nullable|string',
+            'date'             => 'nullable|date',
+            'duration'         => 'nullable|string|max:50',
+            'category'         => 'nullable|string|max:100',
+            'occasion'         => 'nullable|string|max:100',
+            'audio_url'        => 'nullable|url|max:255',
+            'transcript_url'   => 'nullable|url|max:255',
+            'views'            => 'nullable|integer|min:0',
+            'featured'         => 'nullable|boolean',
+            'tags'             => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -66,17 +74,25 @@ class SpeechController extends Controller
     public function updateSpeech(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id'             => 'required|exists:speeches,id',
-            'martyr_id'      => 'sometimes|exists:martyrs,id',
-            'user_id'        => 'sometimes|exists:users,id',
-            'title'          => 'sometimes|string|max:255',
-            'description'    => 'sometimes|string',
-            'document_type'  => 'sometimes|string|max:100',
-            'video_id'       => 'sometimes|integer',
-            'audio_id'       => 'sometimes|integer',
-            'image_id'       => 'sometimes|integer',
-            'content'        => 'sometimes|string',
-            'data'           => 'sometimes|date'
+            'id'               => 'required|exists:speeches,id',
+            'martyr_id'        => 'sometimes|exists:martyrs,id',
+            'user_id'          => 'sometimes|exists:users,id',
+            'title'            => 'sometimes|string|max:255',
+            'description'      => 'sometimes|string',
+            'document_type'    => 'sometimes|string|max:100',
+            'video_id'         => 'sometimes|integer',
+            'audio_id'         => 'sometimes|integer',
+            'image_id'         => 'sometimes|integer',
+            'content'          => 'sometimes|string',
+            'date'             => 'sometimes|date',
+            'duration'         => 'sometimes|string|max:50',
+            'category'         => 'sometimes|string|max:100',
+            'occasion'         => 'sometimes|string|max:100',
+            'audio_url'        => 'sometimes|url|max:255',
+            'transcript_url'   => 'sometimes|url|max:255',
+            'views'            => 'sometimes|integer|min:0',
+            'featured'         => 'sometimes|boolean',
+            'tags'             => 'sometimes|string|max:255',
         ]);
 
         if ($validator->fails()) {
