@@ -87,7 +87,7 @@ const Register: React.FC = () => {
                 navigate('/martyrs');
             }
             else{
-                console.log("hello world")
+                console.log("something wrong happend");
             }
         } catch (error : any) {
             // handle error if needed
