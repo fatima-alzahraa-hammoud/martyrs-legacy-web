@@ -60,7 +60,6 @@ export interface MediaItem {
     file_description: string;
     file_date: string;
     file_location?: string | null;
-    thumbnail_path?: string | null;
     views?: number;
     likes?: number;
     featured: boolean;
