@@ -42,6 +42,14 @@ export interface Story {
     created_at: string;
     date: string;
     image_url?: string | null;
+    content: string;
+    author: string;
+    category: string;
+    readTime: string;
+    likes: number;
+    featured: boolean;
+
+
 };
 
 export interface MediaItem {
