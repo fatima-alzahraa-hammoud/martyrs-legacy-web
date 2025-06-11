@@ -18,8 +18,12 @@ return new class extends Migration
             $table->string('mother_name');
             $table->string('father_name');
             $table->date('birth_date');
+            $table->string('place_of_birth');
             $table->date('martyrdom_date');
             $table->string('burial_place');
+            $table->string('description');
+            $table->string('bio');
+            $table->string('famous_quote');
             $table->enum('status', ['martyr', 'missing', 'detained'])->default('martyr');
             $table->enum('marital_status', ['single', 'engaged', 'married', 'widowed'])->default('single');
             $table->integer('nb_of_children')->nullable();
