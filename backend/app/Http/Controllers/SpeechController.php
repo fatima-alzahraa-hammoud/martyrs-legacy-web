@@ -74,17 +74,25 @@ class SpeechController extends Controller
     public function updateSpeech(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id'             => 'required|exists:speeches,id',
-            'martyr_id'      => 'sometimes|exists:martyrs,id',
-            'user_id'        => 'sometimes|exists:users,id',
-            'title'          => 'sometimes|string|max:255',
-            'description'    => 'sometimes|string',
-            'document_type'  => 'sometimes|string|max:100',
-            'video_id'       => 'sometimes|integer',
-            'audio_id'       => 'sometimes|integer',
-            'image_id'       => 'sometimes|integer',
-            'content'        => 'sometimes|string',
-            'data'           => 'sometimes|date'
+            'id'               => 'required|exists:speeches,id',
+            'martyr_id'        => 'sometimes|exists:martyrs,id',
+            'user_id'          => 'sometimes|exists:users,id',
+            'title'            => 'sometimes|string|max:255',
+            'description'      => 'sometimes|string',
+            'document_type'    => 'sometimes|string|max:100',
+            'video_id'         => 'sometimes|integer',
+            'audio_id'         => 'sometimes|integer',
+            'image_id'         => 'sometimes|integer',
+            'content'          => 'sometimes|string',
+            'date'             => 'sometimes|date',
+            'duration'         => 'sometimes|string|max:50',
+            'category'         => 'sometimes|string|max:100',
+            'occasion'         => 'sometimes|string|max:100',
+            'audio_url'        => 'sometimes|url|max:255',
+            'transcript_url'   => 'sometimes|url|max:255',
+            'views'            => 'sometimes|integer|min:0',
+            'featured'         => 'sometimes|boolean',
+            'tags'             => 'sometimes|string|max:255',
         ]);
 
         if ($validator->fails()) {
