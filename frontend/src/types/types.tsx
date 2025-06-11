@@ -57,11 +57,13 @@ export interface MediaItem {
     file_path: string;
     file_name: string;
     file_type: "photo" | "video" | "audio";
-    file_kind: "interviews" | "identity" | "personal";
     file_description: string;
     file_date: string;
     file_location?: string | null;
-    thumbnail_path?: string;
+    thumbnail_path?: string | null;
+    views?: number;
+    likes?: number;
+    featured: boolean;
 }
 
 export interface MartyrWill {
