@@ -205,7 +205,7 @@ const NavBar: React.FC = () => {
                                 <span>الشهداء الأبرار</span>
                             </Link>
                             <Link 
-                                to="/guardian" 
+                                to="/al-sayed-hasan" 
                                 className="flex items-center space-x-2 rtl:space-x-reverse text-amber-700 hover:text-amber-900 transition-colors duration-200 font-medium text-sm"
                             >
                                 <Heart className="h-4 w-4" />

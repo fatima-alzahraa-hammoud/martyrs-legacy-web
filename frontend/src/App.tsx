@@ -18,6 +18,7 @@ import SayyedSpeeches from "./pages/Al-Sayed Hasan Pages/Speeches";
 import AlSayyedStories from "./pages/Al-Sayed Hasan Pages/AlSayyedStories";
 import AlSayyedAlbum from "./pages/Al-Sayed Hasan Pages/AlSayyedAlbum";
 import AlSayyedInterviews from "./pages/Al-Sayed Hasan Pages/AlSayyedInterviews";
+import AlSayyedHasanPage from "./pages/Al-Sayed Hasan Pages/AlSayyedHasanPage";
 
 const App: React.FC = () => {
     return(
@@ -40,6 +41,7 @@ const App: React.FC = () => {
                 <Route path="/al-sayed-hasan/stories" element={<AlSayyedStories /> } />
                 <Route path="/al-sayed-hasan/album" element={<AlSayyedAlbum /> } />
                 <Route path="/al-sayed-hasan/interview" element={<AlSayyedInterviews /> } />
+                <Route path="/al-sayed-hasan" element={<AlSayyedHasanPage/>} />
             </Routes>
         </div>
     );
