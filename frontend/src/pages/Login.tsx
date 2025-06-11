@@ -36,6 +36,7 @@ const Login: React.FC = () => {
             });
             if (response.status === "success") {
                 sessionStorage.setItem("token", response.token);
+                window.dispatchEvent(new Event('userLoggedIn'));
                 navigate('/martyrs');
             }
             else{
