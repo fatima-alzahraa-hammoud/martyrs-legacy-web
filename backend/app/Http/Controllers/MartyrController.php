@@ -30,6 +30,87 @@ class MartyrController extends Controller
         ], 200);
     }
 
+    public function createMartyr(Request $request){
+        $validator = \Validator::make($request->all(), [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'mother_name' => 'nullable|string|max:255',
+            'father_name' => 'nullable|string|max:255',
+            'birth_date' => 'required|date',
+            'place_of_birth' => 'nullable|string|max:255',
+            'martyrdom_date' => 'required|date',
+            'burial_place' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'bio' => 'nullable|string',
+            'famous_quote' => 'nullable|string|max:500',
+            'status' => 'nullable|string|max:255',
+            'marital_status' => 'nullable|string|max:255',
+            'nb_of_children' => 'nullable|integer|min:0',
+            'related_phone_nb' => 'nullable|string|max:20',
+            'is_published' => 'boolean',
+            'updating' => 'boolean',
+            'is_updated' => 'boolean',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $validator->errors()
+            ], 422);
+        }
+
+        $martyr = Martyr::create($validator->validated());
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $martyr
+        ], 201);
+    }
+    public function updateMartyr(Request $request, $id){
+        $martyr = Martyr::findOrFail($id);
+        if (!$martyr) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Martyr not found'
+            ], 404);
+        }
+
+        $validator = \Validator::make($request->all(), [
+            'first_name' => 'sometimes|required|string|max:255',
+            'last_name' => 'sometimes|required|string|max:255',
+            'mother_name' => 'nullable|string|max:255',
+            'father_name' => 'nullable|string|max:255',
+            'birth_date' => 'sometimes|required|date',
+            'place_of_birth' => 'nullable|string|max:255',
+            'martyrdom_date' => 'sometimes|required|date',
+            'burial_place' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'bio' => 'nullable|string',
+            'famous_quote' => 'nullable|string|max:500',
+            'status' => 'nullable|string|max:255',
+            'marital_status' => 'nullable|string|max:255',
+            'nb_of_children' => 'nullable|integer|min:0',
+            'related_phone_nb' => 'nullable|string|max:20',
+            'is_published' => 'boolean',
+            'updating' => 'boolean',
+            'is_updated' => 'boolean',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $validator->errors()
+            ], 422);
+        }
+
+        $martyr->update($validator->validated());
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $martyr
+        ], 200);
+    }
+
     public function deleteMartyr($id){
         $martyr = Martyr::findOrFail($id);
         if (!$martyr) {
@@ -104,4 +185,6 @@ class MartyrController extends Controller
        // 'user_id_publish' => 'nullable|exists:users,id',
        // 'image_id' => 'nullable|exists:images,id'
     //]);
+
+
 }
