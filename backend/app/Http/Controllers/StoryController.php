@@ -77,13 +77,20 @@ class StoryController extends Controller
             'user_id'       => 'sometimes|exists:users,id',
             'martyr_id'     => 'sometimes|exists:martyrs,id',
             'title'         => 'sometimes|string|max:255',
-            'description'   => 'sometimes|string',
-            'content'       => 'sometimes|string',
-            'updating'      => 'sometimes|boolean',
-            'isUpdated'     => 'sometimes|boolean',
-            'image_id'      => 'sometimes|integer',
-            'video_id'      => 'sometimes|integer',
-            'audio_id'      => 'sometimes|integer'
+            'description'   => 'sometimes|nullable|string',
+            'content'       => 'sometimes|nullable|string',
+            'author'        => 'sometimes|nullable|string|max:255',
+            'category'      => 'sometimes|nullable|string|max:255',
+            'readTime'      => 'sometimes|nullable|integer',
+            'likes'         => 'sometimes|nullable|integer',
+            'featured'      => 'sometimes|nullable|boolean',
+            'updating'      => 'sometimes|nullable|boolean',
+            'isUpdated'     => 'sometimes|nullable|boolean',
+            'isPublished'   => 'sometimes|nullable|boolean',
+            'date'          => 'sometimes|nullable|date',
+            'image_id'      => 'sometimes|nullable|integer',
+            'video_id'      => 'sometimes|nullable|integer',
+            'audio_id'      => 'sometimes|nullable|integer'
         ]);
 
         if ($validator->fails()) {
