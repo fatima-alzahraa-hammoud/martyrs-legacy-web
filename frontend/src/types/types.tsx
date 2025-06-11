@@ -51,10 +51,14 @@ export interface MediaItem {
     file_description: string;
     file_date: string;
     file_location?: string | null;
+    thumbnail_path?: string;
 }
 
 export interface MartyrWill {
     id: number;
+    martyrName: string;
+    martyrdomDate: string;
+    
     martyr_id: number;
     user_id: number;
     title: string;
