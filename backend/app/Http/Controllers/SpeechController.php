@@ -36,16 +36,24 @@ class SpeechController extends Controller
     public function createSpeech(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'martyr_id'      => 'required|exists:martyrs,id',
-            'user_id'        => 'required|exists:users,id',
-            'title'          => 'required|string|max:255',
-            'description'    => 'nullable|string',
-            'document_type'  => 'nullable|string|max:100',
-            'video_id'       => 'nullable|integer',
-            'audio_id'       => 'nullable|integer',
-            'image_id'       => 'nullable|integer',
-            'content'        => 'nullable|string',
-            'data'           => 'nullable|date'
+            'martyr_id'        => 'required|exists:martyrs,id',
+            'user_id'          => 'required|exists:users,id',
+            'title'            => 'required|string|max:255',
+            'description'      => 'nullable|string',
+            'document_type'    => 'nullable|string|max:100',
+            'video_id'         => 'nullable|integer',
+            'audio_id'         => 'nullable|integer',
+            'image_id'         => 'nullable|integer',
+            'content'          => 'nullable|string',
+            'date'             => 'nullable|date',
+            'duration'         => 'nullable|string|max:50',
+            'category'         => 'nullable|string|max:100',
+            'occasion'         => 'nullable|string|max:100',
+            'audio_url'        => 'nullable|url|max:255',
+            'transcript_url'   => 'nullable|url|max:255',
+            'views'            => 'nullable|integer|min:0',
+            'featured'         => 'nullable|boolean',
+            'tags'             => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
