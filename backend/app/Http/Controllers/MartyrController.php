@@ -37,8 +37,12 @@ class MartyrController extends Controller
             'mother_name' => 'nullable|string|max:255',
             'father_name' => 'nullable|string|max:255',
             'birth_date' => 'required|date',
+            'place_of_birth' => 'nullable|string|max:255',
             'martyrdom_date' => 'required|date',
             'burial_place' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'bio' => 'nullable|string',
+            'famous_quote' => 'nullable|string|max:500',
             'status' => 'nullable|string|max:255',
             'marital_status' => 'nullable|string|max:255',
             'nb_of_children' => 'nullable|integer|min:0',
@@ -46,8 +50,6 @@ class MartyrController extends Controller
             'is_published' => 'boolean',
             'updating' => 'boolean',
             'is_updated' => 'boolean',
-            'user_id_publish' => 'nullable|exists:users,id',
-            'image_id' => 'nullable|exists:images,id'
         ]);
 
         if ($validator->fails()) {
@@ -79,8 +81,12 @@ class MartyrController extends Controller
             'mother_name' => 'nullable|string|max:255',
             'father_name' => 'nullable|string|max:255',
             'birth_date' => 'sometimes|required|date',
+            'place_of_birth' => 'nullable|string|max:255',
             'martyrdom_date' => 'sometimes|required|date',
             'burial_place' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'bio' => 'nullable|string',
+            'famous_quote' => 'nullable|string|max:500',
             'status' => 'nullable|string|max:255',
             'marital_status' => 'nullable|string|max:255',
             'nb_of_children' => 'nullable|integer|min:0',
@@ -88,8 +94,6 @@ class MartyrController extends Controller
             'is_published' => 'boolean',
             'updating' => 'boolean',
             'is_updated' => 'boolean',
-            'user_id_publish' => 'nullable|exists:users,id',
-            'image_id' => 'nullable|exists:images,id'
         ]);
 
         if ($validator->fails()) {
