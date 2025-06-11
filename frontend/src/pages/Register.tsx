@@ -83,7 +83,7 @@ const Register: React.FC = () => {
             });
             console.log(response);
             if (response.status === "success") {
-                sessionStorage.setItem("token", response.data.token);
+                sessionStorage.setItem("token", response.token);
                 navigate('/martyrs');
             }
             else{
