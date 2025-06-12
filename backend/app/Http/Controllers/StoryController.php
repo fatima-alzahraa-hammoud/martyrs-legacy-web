@@ -33,6 +33,22 @@ class StoryController extends Controller
             'data' => $story
         ], 200);
     }
+
+    public function getMartyrStories($id){
+        $stories = Story::where('martyr_id', $id)->get();
+
+        if ($stories->isEmpty()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No stories found for this martyr'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $stories
+        ], 200);
+    }
      public function createStory(Request $request)
     {
         $validator = Validator::make($request->all(), [
