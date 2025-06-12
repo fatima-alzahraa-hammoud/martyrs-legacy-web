@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Plus, Search, BookOpen, Calendar, User } from "lucide-react";
 import Sidebar from "../SideBar";
 import type { Martyr } from "../../types/types";
+import { requestApi } from "../../utils/requestAPI";
+import { requestMethods } from "../../utils/requestMethod";
 
 const MartyrsPage: React.FC = () => {
   const [martyrs, setMartyrs] = useState<Martyr[]>([]);
 
+  useEffect(() =>{
+      const fetchMartyrs = async () => {
+          try {
+              const response = await requestApi({
+                  route: "/martyrs",
+                  method: requestMethods.GET,
+              });
+
+              if (response.status === "success") {
+                  const data = await response.data;
+                  setMartyrs(data);
+              } else {
+                  console.error("Failed to fetch martyrs:", response.message);
+              }
+          } catch (error) {
+              console.log("Error Catched: ", error);
+          }
+      }
+
+      fetchMartyrs();
+  }, [])
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-amber-25 to-orange-25">
       <Sidebar />
