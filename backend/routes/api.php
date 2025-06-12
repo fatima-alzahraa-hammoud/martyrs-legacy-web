@@ -24,3 +24,7 @@ Route::prefix('martyrs')->group(function () {
     Route::get('/stories', [StoryController::class, 'getStories']);
     Route::get("/wills", [MartyrWillController::class, 'getMartyrsWills']);
 });
+
+Route::prefix('martyr')->group(function () {
+    Route::get('/{id}', [MartyrController::class, 'getMartyr']);
+});
