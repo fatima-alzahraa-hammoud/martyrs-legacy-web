@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Plus, Search, BookOpen, Calendar, User } from "lucide-react";
+import { Plus, Search, BookOpen, Calendar, User, Link } from "lucide-react";
 import Sidebar from "../SideBar";
 import type { Martyr } from "../../types/types";
 import { requestApi } from "../../utils/requestAPI";
@@ -82,41 +82,46 @@ const MartyrsPage: React.FC = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
               {martyrs.map((martyr) => (
-                <div 
-                  key={martyr.id}
-                  className="bg-gradient-to-br from-amber-25 to-orange-25 rounded-xl p-6 shadow-md border border-amber-200 hover:shadow-lg transition-all duration-300 transform hover:scale-105"
-                >
-                  <div className="text-center mb-4">
-                    <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-amber-200 shadow-md">
-                      {martyr.image ? (
-                        <img 
-                          src={martyr.image} 
-                          alt={martyr.name}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-amber-100 flex items-center justify-center">
-                          <User className="h-12 w-12 text-amber-400" />
-                        </div>
-                      )}
-                    </div>
-                    <h3 className="text-xl font-bold text-amber-800 mb-2 font-arabic">
-                      {martyr.name}
-                    </h3>
-                    <div className="flex items-center justify-center space-x-2 rtl:space-x-reverse text-amber-600 mb-4">
-                      <Calendar className="h-4 w-4" />
-                      <p className="text-sm font-arabic">
-                        تاريخ الاستشهاد: {martyr.martyrdom_date}
-                      </p>
-                    </div>
+                  <div 
+                      key={martyr.id}
+                      className="bg-gradient-to-br from-amber-25 to-orange-25 rounded-xl p-6 shadow-md border border-amber-200 hover:shadow-lg transition-all duration-300 transform hover:scale-105"
+                  >
+                      <div className="text-center mb-4">
+                          <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-amber-200 shadow-md">
+                              {martyr.image ? (
+                                  <img 
+                                      src={martyr.image} 
+                                      alt={martyr.name}
+                                      className="w-full h-full object-cover"
+                                  />
+                              ) : (
+                                  <div className="w-full h-full bg-amber-100 flex items-center justify-center">
+                                      <User className="h-12 w-12 text-amber-400" />
+                                  </div>
+                              )}
+                          </div>
+                          <h3 className="text-xl font-bold text-amber-800 mb-2 font-arabic">
+                              {martyr.name}
+                          </h3>
+                          <div className="flex items-center justify-center space-x-2 rtl:space-x-reverse text-amber-600 mb-4">
+                              <Calendar className="h-4 w-4" />
+                              <p className="text-sm font-arabic">
+                                  تاريخ الاستشهاد: {martyr.martyrdom_date}
+                              </p>
+                          </div>
+                      </div>
+                      
+                      {/* Navigate to Martyr Page */}
+                      <Link
+                          to={`/martyr/${martyr.id}`} 
+                          className="w-full flex items-center justify-center space-x-2 rtl:space-x-reverse bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
+                      >
+                          <BookOpen className="h-4 w-4" />
+                          <span>اقرأ المزيد</span>
+                      </Link>
                   </div>
-                  
-                  <button className="w-full flex items-center justify-center space-x-2 rtl:space-x-reverse bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg">
-                    <BookOpen className="h-4 w-4" />
-                    <span>اقرأ المزيد</span>
-                  </button>
-                </div>
               ))}
             </div>
           )}
