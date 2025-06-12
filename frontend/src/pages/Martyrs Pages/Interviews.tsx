@@ -1,11 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Plus, Search, MessageSquare, Calendar, PlayCircle } from "lucide-react";
 import Sidebar from "../SideBar";
 import type { Interview } from "../../types/types";
+import { requestApi } from "../../utils/requestAPI";
+import { requestMethods } from "../../utils/requestMethod";
 
 const InterviewsPage: React.FC = () => {
   const [interviews, setInterviews] = useState<Interview[]>([]);
+
+  useEffect(() =>{
+    const fetchInterviews = async () => {
+      try {
+          const response = await requestApi({
+              route: "/martyrs/interviews",
+              method: requestMethods.GET,
+          });
+
+          if (response.status === "success") {
+              const data = await response.data;
+              setInterviews(data);
+          } else {
+              console.error("Failed to fetch martyrs interviews:", response.message);
+          }
+      } catch (error) {
+          console.log("Error Catched: ", error);
+      }
+    }
+
+    fetchInterviews();
+  }, [])
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-amber-25 to-orange-25">
