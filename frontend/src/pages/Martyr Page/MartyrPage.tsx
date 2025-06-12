@@ -1,10 +1,36 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, User, Calendar, MapPin, Heart, Quote, FileText, Home } from "lucide-react";
 import type { Martyr } from "../../types/types";
+import { requestApi } from "../../utils/requestAPI";
+import { requestMethods } from "../../utils/requestMethod";
+
 
 const MartyrPage: React.FC = () => {
+    const { id } = useParams(); // Get the martyr ID from the URL
     const [martyr, setMartyr] = useState<Martyr | null>(null);
+
+    useEffect(() =>{
+        const fetchMartyr = async () => {
+            try {
+                const response = await requestApi({
+                    route: `/martyr/${id}`,
+                    method: requestMethods.GET,
+                });
+
+                if (response.status === "success") {
+                    const data = await response.data;
+                    setMartyr(data);
+                } else {
+                    console.error("Failed to fetch martyr:", response.message);
+                }
+            } catch (error) {
+                console.log("Error Catched: ", error);
+            }
+        }
+
+        fetchMartyr();
+    }, []);
 
     const calculateAge = (birth: string, death: string): number => {
         const birthDate = new Date(birth);
