@@ -5,6 +5,7 @@ import Sidebar from "../SideBar";
 import type { MediaItem } from "../../types/types";
 import { requestApi } from "../../utils/requestAPI";
 import { requestMethods } from "../../utils/requestMethod";
+import MartyrSideBar from "./MartyrSideBar";
 
 const MartyrAlbumPage: React.FC = () => {
     const { id } = useParams();
@@ -62,7 +63,7 @@ const MartyrAlbumPage: React.FC = () => {
 
     return (
         <div className="flex min-h-screen bg-gradient-to-br from-amber-25 to-orange-25">
-            <Sidebar />
+            <MartyrSideBar />
             
             <main className="flex-1 p-8">
                 {/* Header Section */}
