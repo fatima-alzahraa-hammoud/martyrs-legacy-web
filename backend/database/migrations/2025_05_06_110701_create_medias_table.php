@@ -18,10 +18,12 @@ return new class extends Migration
             $table->string('file_path');
             $table->string('file_name');
             $table->enum('file_type',['photo', 'video', 'audio']);
-            $table->enum('file_kind',['interviews', 'identity', 'personal']);
             $table->string('file_description');
             $table->date('file_date');
             $table->string('file_location')->nullable();
+            $table->number('views')->default(0);
+            $table->string('likes')->default(0);
+            $table->boolean('featured')->default(false);
             $table->timestamps();
         });
     }

@@ -23,6 +23,9 @@ return new class extends Migration
             $table->foreignId('image_id')->nullable()->constrained('medias');
             $table->text('content');
             $table->date('date');
+            $table->string('outlet')->nullable();
+            $table->string('duration')->nullable();
+            $table->string('views')->nullable();
             $table->timestamps();
         });
     }
