@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import { ArrowLeft, FileText, Calendar, Heart, Scroll, MessageCircle } from "lucide-react";
 import type { MartyrWill } from "../../types/types";
 import MartyrSideBar from "./MartyrSideBar";
+import { requestApi } from "../../utils/requestAPI";
+import { requestMethods } from "../../utils/requestMethod";
 
 const recipientLabels: Record<string, string> = {
     mother: "الأم",
@@ -33,8 +35,38 @@ const recipientIcons: Record<string, React.ReactElement> = {
 };
 
 const WillPage: React.FC = () => {
+    const { id } = useParams();
     const [will, setWill] = useState<MartyrWill | null>(null);
     const [parsedContent, setParsedContent] = useState<Record<string, string>>({});
+
+
+    useEffect(() =>{
+        const fetchWill = async () => {
+            try {
+                const response = await requestApi({
+                    route: `/martyr/${id}/will`,
+                    method: requestMethods.GET,
+                });
+
+                if (response.status === "success") {
+                    const data = await response.data;
+                    // Parse the content of the will
+                    const parsed = data.content
+                        ? JSON.parse(data.content) // Assuming `content` is a JSON string
+                        : {};
+
+                    setWill(data);
+                    setParsedContent(parsed);
+                } else {
+                    console.error("Failed to fetch martyr will:", response.message);
+                }
+            } catch (error) {
+                console.log("Error Catched: ", error);
+            }
+        }
+
+        fetchWill();
+    }, [id]);
 
     return (
         <div className="flex min-h-screen bg-gradient-to-br from-amber-25 to-orange-25">
