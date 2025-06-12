@@ -1,10 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Play, Volume2, BookOpen, Calendar, Mic, Video } from "lucide-react";
+import { useParams } from "react-router-dom";
 import type { Interview } from "../../types/types";
 import MartyrSideBar from "./MartyrSideBar";
+import { requestApi } from "../../utils/requestAPI";
+import { requestMethods } from "../../utils/requestMethod";
 
 const MartyrInterviews: React.FC = () => {
+    const { id } = useParams();
     const [interviews, setInterviews] = useState<Interview[]>([]);
+
+    useEffect(() =>{
+        const fetchInterviews = async () => {
+            try {
+                const response = await requestApi({
+                    route: `/martyr/${id}/interviews`,
+                    method: requestMethods.GET,
+                });
+
+                if (response.status === "success") {
+                    const data = await response.data;
+                    setInterviews(data);
+                } else {
+                    console.error("Failed to fetch martyr interviews:", response.message);
+                }
+            } catch (error) {
+                console.log("Error Catched: ", error);
+            }
+        }
+
+        fetchInterviews();
+    }, [id]);
 
     return (
         <div className="flex min-h-screen bg-gradient-to-br from-amber-25 to-orange-25">

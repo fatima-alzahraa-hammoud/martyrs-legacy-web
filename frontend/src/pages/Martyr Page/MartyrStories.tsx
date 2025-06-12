@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Search, Filter, Plus, BookOpen, Calendar, ArrowRight, Image } from "lucide-react";
-import Sidebar from "../SideBar";
 import type { Story } from "../../types/types";
 import { requestApi } from "../../utils/requestAPI";
 import { requestMethods } from "../../utils/requestMethod";
