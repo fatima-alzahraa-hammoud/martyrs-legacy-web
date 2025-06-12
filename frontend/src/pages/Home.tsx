@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Heart, Users, Mail, Phone, MessageCircle, Facebook, Twitter, Instagram, Star, Shield, Crown } from "lucide-react";
+import { requestApi } from "../utils/requestAPI";
+import { requestMethods } from "../utils/requestMethod";
 
 // Mock Martyr type
 interface Martyr {
@@ -10,26 +12,29 @@ interface Martyr {
 }
 
 const Home = () => {
-    const [martyrs, setMartyrs] = React.useState<Martyr[]>([
-        {
-            name: "أحمد محمد الشهيد",
-            description: "استشهد في سبيل الدفاع عن الوطن، كان مثالاً للشجاعة والتضحية",
-            date: "2024-01-15",
-            age: 28
-        },
-        {
-            name: "فاطمة علي الشهيدة",
-            description: "ضحت بحياتها من أجل حماية المدنيين الأبرياء",
-            date: "2024-02-10",
-            age: 32
-        },
-        {
-            name: "محمد حسن الشهيد",
-            description: "قائد شجاع استشهد وهو يدافع عن أرضه وشعبه",
-            date: "2024-03-05",
-            age: 35
+    const [martyrs, setMartyrs] = React.useState<Martyr[]>([]);
+
+    useEffect(() =>{
+        const fetchMartyrs = async () => {
+            try {
+                const response = await requestApi({
+                    route: "/martyrs",
+                    method: requestMethods.GET,
+                });
+
+                if (response.status === "success") {
+                    const data = await response.data;
+                    setMartyrs(data);
+                } else {
+                    console.error("Failed to fetch martyrs:", response.message);
+                }
+            } catch (error) {
+                console.log("Error Catched: ", error);
+            }
         }
-    ]);
+
+        fetchMartyrs();
+    }, [])
 
     const [contactForm, setContactForm] = React.useState({
         name: "",
