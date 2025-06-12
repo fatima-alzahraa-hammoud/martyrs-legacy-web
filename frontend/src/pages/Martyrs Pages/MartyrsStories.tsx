@@ -1,12 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Plus, Search, BookOpen, Heart, Star, Calendar } from "lucide-react";
 import Sidebar from "../SideBar";
 import type { Story } from "../../types/types";
+import { requestApi } from "../../utils/requestAPI";
+import { requestMethods } from "../../utils/requestMethod";
 
 const MartyrsStoriesPage: React.FC = () => {
-  const [stories, setStories] = React.useState<Story[]>([
-    
-  ]);
+  const [stories, setStories] = React.useState<Story[]>([]);
+
+  useEffect(() =>{
+    const fetchStories = async () => {
+      try {
+          const response = await requestApi({
+              route: "/martyrs/stories",
+              method: requestMethods.GET,
+          });
+
+          if (response.status === "success") {
+              const data = await response.data;
+              setStories(data);
+          } else {
+              console.error("Failed to fetch martyrs interviews:", response.message);
+          }
+      } catch (error) {
+          console.log("Error Catched: ", error);
+      }
+    }
+
+    fetchStories();
+  }, []);
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-amber-25 to-orange-25">
