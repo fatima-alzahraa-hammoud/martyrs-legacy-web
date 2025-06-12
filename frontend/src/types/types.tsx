@@ -14,7 +14,7 @@ export interface Martyr {
     marital_status: string;
     nb_of_childen: number;
     related_phone_nb: string;
-    image: string;
+    image: string; //fetched from medias
     bio: string;
     famous_quote: string;
 };
@@ -67,9 +67,8 @@ export interface MediaItem {
 
 export interface MartyrWill {
     id: number;
-    martyrName: string;
-    martyrdomDate: string;
-    
+    martyrName: string; // fetched from Martyr
+    martyrdomDate: string; // fetched from Martyr
     martyr_id: number;
     user_id: number;
     title: string;
@@ -77,21 +76,25 @@ export interface MartyrWill {
     document_type: "will" | "letter" | "audio_message" | "video_message";
     content: string;
     date: string;
-    video_id?: number | null;
-    audio_id?: number | null;
-    image_id?: number | null;
+    video_url?: string | null; 
+    audio_url?: string | null;
+    image_url?: string | null;
 }
 
 export interface Speech {
     id: number;
     title: string;
     description: string;
-    date: string;
+    document_type: "speech" | "audio_message" | "video_message" | 'letter';
+    content: string;
+    date: Date;
     duration: string;
     category: string;
     occasion: string;
     audio_url?: string | null;
     transcript_url?: string | null;
+    video_url?: string | null;
+    image_url?: string | null;
     views?: string | null;
     featured: boolean;
     tags: string[];
