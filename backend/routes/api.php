@@ -26,5 +26,5 @@ Route::prefix('martyrs')->group(function () {
 });
 
 Route::prefix('martyr')->group(function () {
-    Route::get('/{id}', [MartyrController::class, 'getMartyr']);
+    Route::get('/{id}/stories', [MartyrController::class, 'getMartyr']);
 });
