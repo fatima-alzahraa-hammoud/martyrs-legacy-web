@@ -8,7 +8,7 @@ use Validator;
 
 class MartyrWillController extends Controller
 {
-    public function getMartyrWills()
+    public function getMartyrsWills()
     {
         $wills = MartyrWill::all();
         return response()->json([

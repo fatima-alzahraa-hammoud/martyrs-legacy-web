@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\MartyrController;
+use App\Http\Controllers\MartyrWillController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
@@ -21,4 +22,5 @@ Route::prefix('martyrs')->group(function () {
     Route::get('/', [MartyrController::class, 'getMartyrs']);
     Route::get('/interviews', [InterviewController::class, 'getInterviews']);
     Route::get('/stories', [StoryController::class, 'getStories']);
+    Route::get("/wills", [MartyrWillController::class, 'getMartyrsWills']);
 });
