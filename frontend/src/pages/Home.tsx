@@ -24,7 +24,7 @@ const Home = () => {
 
                 if (response.status === "success") {
                     const data = await response.data;
-                    setMartyrs(data);
+                    setMartyrs(data.slice(0, 8));
                 } else {
                     console.error("Failed to fetch martyrs:", response.message);
                 }
