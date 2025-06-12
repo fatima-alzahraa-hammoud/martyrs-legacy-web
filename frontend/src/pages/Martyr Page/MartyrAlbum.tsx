@@ -1,12 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Search, Plus, Image, Video, Volume2, Calendar, Filter } from "lucide-react";
+import { useParams } from "react-router-dom";
 import Sidebar from "../SideBar";
 import type { MediaItem } from "../../types/types";
+import { requestApi } from "../../utils/requestAPI";
+import { requestMethods } from "../../utils/requestMethod";
 
 const MartyrAlbumPage: React.FC = () => {
+    const { id } = useParams();
     const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [sortFilter, setSortFilter] = useState("latest");
+
+    useEffect(() =>{
+        const fetchAlbum = async () => {
+            try {
+                const response = await requestApi({
+                    route: `/martyr/${id}/media`,
+                    method: requestMethods.GET,
+                });
+
+                if (response.status === "success") {
+                    const data = await response.data;
+                    setMediaItems(data);
+                } else {
+                    console.error("Failed to fetch martyr album:", response.message);
+                }
+            } catch (error) {
+                console.log("Error Catched: ", error);
+            }
+        }
+
+        fetchAlbum();
+    }, [id]);
 
     const getMediaIcon = (type: string) => {
         switch (type) {
