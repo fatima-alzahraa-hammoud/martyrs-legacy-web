@@ -36,7 +36,7 @@ const App: React.FC = () => {
                 <Route path="/martyr/:id/will" element={<MartyrWill /> } />
                 <Route path="/martyr/:id/stories" element={<MartyrStories /> } />
                 <Route path="/martyr/:id/interviews" element={<MartyrInterviewsPage /> } />
-                <Route path="/martyr/album" element={<MartyrAlbumPage /> } />
+                <Route path="/martyr/:id/album" element={<MartyrAlbumPage /> } />
                 <Route path="/al-sayed-hasan/speeches" element={<SayyedSpeeches /> } />
                 <Route path="/al-sayed-hasan/stories" element={<AlSayyedStories /> } />
                 <Route path="/al-sayed-hasan/album" element={<AlSayyedAlbum /> } />
