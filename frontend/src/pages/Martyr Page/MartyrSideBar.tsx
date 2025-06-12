@@ -33,7 +33,7 @@ const MartyrSideBar: React.FC = () => {
                         </li>
                         <li>
                             <Link
-                                to={`/martyr/stories/${id}`}
+                                to={`/martyr/${id}/stories/`}
                                 className="flex items-center space-x-3 rtl:space-x-reverse text-amber-700 hover:text-amber-900 hover:bg-amber-100 px-4 py-3 rounded-lg font-medium transition-colors duration-200 text-sm group"
                             >
                                 <BookOpen className="h-5 w-5 group-hover:scale-110 transition-transform duration-200" />
