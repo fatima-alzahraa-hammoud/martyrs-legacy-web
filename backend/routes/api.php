@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\MartyrController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
@@ -15,4 +16,7 @@ Route::prefix('auth')->group(function () {
 
 Route::get('/users', [UserController::class, 'getUsers']);
 
-Route::get('/martyrs', [MartyrController::class, 'getMartyrs']);
+Route::prefix('martyrs')->group(function () {
+    Route::get('/', [MartyrController::class, 'getMartyrs']);
+    Route::get('/interviews', [InterviewController::class, 'getInterviews']);
+});
