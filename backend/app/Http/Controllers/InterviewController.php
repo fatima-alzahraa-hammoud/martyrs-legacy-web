@@ -33,6 +33,23 @@ class InterviewController extends Controller
             'data' => $interview
         ], 200);
     }
+
+    public function getMartyrInterviews($id)
+    {
+        $interviews = Interview::where('martyr_id', $id)->get();
+
+        if ($interviews->isEmpty()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No interviews found for this martyr'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $interviews
+        ], 200);
+    }
     public function createInterview(Request $request)
     {
         $validator = Validator::make($request->all(), [
