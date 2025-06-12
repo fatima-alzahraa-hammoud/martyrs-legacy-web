@@ -20,7 +20,7 @@ const MartyrsStoriesPage: React.FC = () => {
               const data = await response.data;
               setStories(data);
           } else {
-              console.error("Failed to fetch martyrs interviews:", response.message);
+              console.error("Failed to fetch martyrs stories:", response.message);
           }
       } catch (error) {
           console.log("Error Catched: ", error);
