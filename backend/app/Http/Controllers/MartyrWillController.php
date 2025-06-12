@@ -32,6 +32,23 @@ class MartyrWillController extends Controller
             'data' => $will
         ], 200);
     }
+
+    public function getMartyrWillsByMartyr($id)
+    {
+        $wills = MartyrWill::where('martyr_id', $id)->get();
+
+        if ($wills->isEmpty()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No wills found for this martyr'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $wills
+        ], 200);
+    }
     public function createMartyrWill(Request $request)
     {
         $validator = Validator::make($request->all(), [
