@@ -12,10 +12,12 @@ class Media extends Model
         'file_type',
         'user_id',
         'martyr_id',
-        'file_kind',
         'file_description',
         'file_date',
-        'file_location'
+        'file_location',
+        'views',
+        'likes',
+        'featured',
     ];
     public function user(){
         return $this->belongsTo(User::class);
