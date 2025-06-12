@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Plus, Search, Scroll, Heart,  Calendar, User, FileText } from "lucide-react";
 import Sidebar from "../SideBar";
 import type { MartyrWill } from "../../types/types";
+import { requestApi } from "../../utils/requestAPI";
+import { requestMethods } from "../../utils/requestMethod";
 
 const MartyrsWillsPage: React.FC = () => {
-  const [wills, setWills] = React.useState<MartyrWill[]>([
-  ]);
+  const [wills, setWills] = React.useState<MartyrWill[]>([]);
+
+  useEffect(() =>{
+    const fetchWills = async () => {
+      try {
+          const response = await requestApi({
+              route: "/martyrs/wills",
+              method: requestMethods.GET,
+          });
+
+          if (response.status === "success") {
+              const data = await response.data;
+              setWills(data);
+          } else {
+              console.error("Failed to fetch martyrs wills:", response.message);
+          }
+      } catch (error) {
+          console.log("Error Catched: ", error);
+      }
+    }
+
+    fetchWills();
+  }, []);
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-amber-25 to-orange-25">
