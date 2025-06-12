@@ -24,7 +24,7 @@ const Home = () => {
 
                 if (response.status === "success") {
                     const data = await response.data;
-                    setMartyrs(data.slice(0, 8));
+                    setMartyrs(data);
                 } else {
                     console.error("Failed to fetch martyrs:", response.message);
                 }
@@ -196,9 +196,38 @@ const Home = () => {
                     <div className="text-center mb-16">
                         <h2 className="text-4xl font-bold text-amber-800 mb-6">آخر الشهداء المضافين</h2>
                         <div className="w-24 h-1 bg-amber-600 mx-auto mb-8"></div>
-                        <p className="text-xl text-amber-700 max-w-4xl mx-auto leading-relaxed">
+                        <p className="text-xl text-amber-700 max-w-4xl mx-auto leading-relaxed mb-8">
                             هنا تجدون آخر الشهداء الذين تم إضافتهم إلى موقعنا. نحن نعمل جاهدين لتحديث قاعدة بياناتنا بشكل دوري لضمان تقديم المعلومات الأكثر دقة وشمولية.
                         </p>
+                        
+                        {/* View All Martyrs Button */}
+                        <div className="mb-12">
+                            <button 
+                                onClick={() => window.location.href = '/martyrs'}
+                                className="group inline-flex items-center gap-3 px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                                style={{ 
+                                    background: 'linear-gradient(to right, #d97706, #b45309)',
+                                    color: '#ffffff',
+                                    border: 'none',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                <Heart className="h-4 w-4 group-hover:animate-pulse" style={{ color: '#ffffff' }} />
+                                <span className="text-white text-sm">عرض جميع الشهداء</span>
+                                <svg 
+                                    className="h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" 
+                                    fill="none" 
+                                    stroke="currentColor" 
+                                    viewBox="0 0 24 24"
+                                    style={{ color: '#ffffff' }}
+                                >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
+                            <p className="text-amber-600 mt-4 text-xs">
+                                اكتشف قصص المزيد من الشهداء الأبرار
+                            </p>
+                        </div>
                     </div>
                     
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
