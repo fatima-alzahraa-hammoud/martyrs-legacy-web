@@ -16,7 +16,10 @@ class Interview extends Model
         'date',
         'image_id',
         'video_id',
-        'audio_id'
+        'audio_id',
+        'views',
+        'outlet',
+        'duration',
     ];
 
     public function user()
