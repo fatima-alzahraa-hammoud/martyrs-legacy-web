@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Play, Volume2, BookOpen, Calendar, Mic, Video } from "lucide-react";
-import Sidebar from "../SideBar";
 import type { Interview } from "../../types/types";
+import MartyrSideBar from "./MartyrSideBar";
 
 const MartyrInterviews: React.FC = () => {
     const [interviews, setInterviews] = useState<Interview[]>([]);
 
     return (
         <div className="flex min-h-screen bg-gradient-to-br from-amber-25 to-orange-25">
-            <Sidebar />
+            <MartyrSideBar />
             
             <main className="flex-1 p-8">
                 {/* Header Section */}
