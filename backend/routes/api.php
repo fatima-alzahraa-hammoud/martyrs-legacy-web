@@ -32,3 +32,7 @@ Route::prefix('martyr')->group(function () {
     Route::get('/{id}/will', [MartyrWillController::class, 'getMartyrWillsByMartyr']);
     Route::get('/{id}/media', [MediaController::class, 'getMediaByMartyr']);
 });
+
+Route::middleware("jwt")->group(function () {
+    Route::post('/martyr', [MartyrController::class, 'createMartyr']);
+});

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Martyr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class MartyrController extends Controller
 {
@@ -34,22 +35,19 @@ class MartyrController extends Controller
         $validator = \Validator::make($request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'mother_name' => 'nullable|string|max:255',
-            'father_name' => 'nullable|string|max:255',
+            'mother_name' => 'required|string|max:255',
+            'father_name' => 'required|string|max:255',
             'birth_date' => 'required|date',
-            'place_of_birth' => 'nullable|string|max:255',
+            'place_of_birth' => 'required|string|max:255',
             'martyrdom_date' => 'required|date',
             'burial_place' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'bio' => 'nullable|string',
             'famous_quote' => 'nullable|string|max:500',
-            'status' => 'nullable|string|max:255',
-            'marital_status' => 'nullable|string|max:255',
+            'marital_status' => 'required|string|max:255',
             'nb_of_children' => 'nullable|integer|min:0',
-            'related_phone_nb' => 'nullable|string|max:20',
-            'is_published' => 'boolean',
-            'updating' => 'boolean',
-            'is_updated' => 'boolean',
+            'related_phone_nb' => 'required|string|max:20',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Add image validation
         ]);
 
         if ($validator->fails()) {
@@ -59,13 +57,52 @@ class MartyrController extends Controller
             ], 422);
         }
 
-        $martyr = Martyr::create($validator->validated());
+        $data = $validator->validated();
+
+        // Add default boolean fields
+        $data['is_published'] = false;
+        $data['updating'] = false;
+        $data['is_updated'] = false;
+        $data['user_id_publish'] = auth()->id() ?? 1; // Use authenticated user or fallback to 1
+        $data['status'] = 'martyr'; // Default status
+
+
+        Log::info('Creating martyr with data: ', $data);
+        unset($data['image']);
+
+        // Create martyr first (without image_id)
+        $martyr = Martyr::create($data);
+
+        // Handle image upload and create media record
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $imagePath = $file->store('photos', 'public');
+
+            $media = \App\Models\Media::create([
+                'martyr_id' => $martyr->id,
+                'user_id' => auth()->id() ?? 1, // Use authenticated user or fallback to 1
+                'file_path' => $imagePath,
+                'file_name' => $file->getClientOriginalName(),
+                'file_type' => 'photo',
+                'file_description' => 'Martyr main image',
+                'file_date' => now(),
+                'file_location' => null,
+                'views' => 0,
+                'likes' => 0,
+                'featured' => true,
+            ]);
+
+            // Update martyr with image_id
+            $martyr->image_id = $media->id;
+            $martyr->save();
+        }
 
         return response()->json([
             'status' => 'success',
             'data' => $martyr
         ], 201);
     }
+
     public function updateMartyr(Request $request, $id){
         $martyr = Martyr::findOrFail($id);
         if (!$martyr) {

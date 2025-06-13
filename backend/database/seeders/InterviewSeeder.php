@@ -14,7 +14,7 @@ class InterviewSeeder extends Seeder
     {
         // Interviews for السيد حسن نصر الله
         Interview::create([
-            'martyr_id' => 2, // Martyr ID for السيد حسن نصر الله
+            'martyr_id' => 1, // Martyr ID for السيد حسن نصر الله
             'user_id' => 12, // Assuming user_id_publish from MartyrSeeder
             'title' => 'مقابلة بالفيديو مع السيد حسن نصر الله',
             'description' => 'مقابلة بالفيديو مع السيد حسن نصر الله حول المقاومة.',
@@ -30,7 +30,7 @@ class InterviewSeeder extends Seeder
         ]);
 
         Interview::create([
-            'martyr_id' => 2,
+            'martyr_id' => 1,
             'user_id' => 12,
             'title' => 'رسالة صوتية للسيد حسن نصر الله',
             'description' => 'رسالة صوتية للسيد حسن نصر الله حول الصمود.',
@@ -46,7 +46,7 @@ class InterviewSeeder extends Seeder
         ]);
 
         Interview::create([
-            'martyr_id' => 2,
+            'martyr_id' => 1,
             'user_id' => 12,
             'title' => 'صورة وتعليق للسيد حسن نصر الله',
             'description' => 'صورة للسيد حسن نصر الله مع تعليق حول المقاومة.',
@@ -63,7 +63,7 @@ class InterviewSeeder extends Seeder
 
         // Interviews for عباس خير الدين
         Interview::create([
-            'martyr_id' => 3, // Martyr ID for عباس خير الدين
+            'martyr_id' => 2, // Martyr ID for عباس خير الدين
             'user_id' => 12,
             'title' => 'مقابلة بالفيديو مع عباس خير الدين',
             'description' => 'مقابلة بالفيديو مع الشهيد عباس خير الدين حول العمل الأمني.',
@@ -79,7 +79,7 @@ class InterviewSeeder extends Seeder
         ]);
 
         Interview::create([
-            'martyr_id' => 3,
+            'martyr_id' => 2,
             'user_id' => 12,
             'title' => 'صورة وتعليق لعباس خير الدين',
             'description' => 'صورة للشهيد عباس خير الدين مع تعليق حول العمل الأمني.',

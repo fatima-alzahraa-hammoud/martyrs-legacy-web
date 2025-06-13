@@ -25,6 +25,8 @@ class Martyr extends Model
         'is_published',
         'updating',
         'is_updated',
+        'image_id',
+        'user_id_publish'
     ];
 
     public function user()
