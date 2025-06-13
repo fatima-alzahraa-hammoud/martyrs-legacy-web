@@ -5,9 +5,17 @@ import Sidebar from "../SideBar";
 import type { Martyr } from "../../types/types";
 import { requestApi } from "../../utils/requestAPI";
 import { requestMethods } from "../../utils/requestMethod";
+import AddMartyrDialog from "./AddMartyrDialog";
 
 const MartyrsPage: React.FC = () => {
   const [martyrs, setMartyrs] = useState<Martyr[]>([]);
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleMartyrAdded = (newMartyr: Martyr) => {
+      // Handle the newly added martyr (e.g., refresh list, show success message)
+      console.log("New martyr added:", newMartyr);
+  };
 
   useEffect(() =>{
       const fetchMartyrs = async () => {
@@ -51,7 +59,7 @@ const MartyrsPage: React.FC = () => {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-          <button className="flex items-center justify-center space-x-3 rtl:space-x-reverse bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105">
+          <button onClick={() => setIsDialogOpen(true)} className="flex items-center justify-center space-x-3 rtl:space-x-reverse bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105">
             <Plus className="h-5 w-5" />
             <span>إضافة شهيد</span>
           </button>
@@ -127,6 +135,13 @@ const MartyrsPage: React.FC = () => {
           )}
         </section>
       </main>
+
+      <AddMartyrDialog
+          isOpen={isDialogOpen}
+          onClose={() => setIsDialogOpen(false)}
+          onMartyrAdded={handleMartyrAdded}
+      />
+
     </div>
   );
 };

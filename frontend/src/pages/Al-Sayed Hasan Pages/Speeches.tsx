@@ -1,81 +1,11 @@
 import React, { useState } from "react";
 import { Search, Calendar, Play, Volume2, BookOpen, Star, Clock, User, ArrowLeft, Plus, Filter, Mic } from "lucide-react";
+import type { Speech } from "../../types/types";
+import { requestApi } from "../../utils/requestAPI";
+import { requestMethods } from "../../utils/requestMethod";
+import { useEffect } from "react";
 
-// Mock data for demonstration
-const mockSpeeches = [
-  {
-    id: 1,
-    title: "خطاب المقاومة والصمود",
-    description: "خطاب تاريخي يتحدث عن أهمية المقاومة والصمود في وجه التحديات، مع التأكيد على الوحدة والقوة الداخلية",
-    date: "2024-01-15",
-    duration: "45 دقيقة",
-    category: "سياسية",
-    occasion: "ذكرى التحرير",
-    audioUrl: "#",
-    transcriptUrl: "#",
-    views: 125000,
-    featured: true,
-    tags: ["مقاومة", "صمود", "وحدة"]
-  },
-  {
-    id: 2,
-    title: "في ذكرى عاشوراء",
-    description: "كلمة مؤثرة في ذكرى عاشوراء تتناول دروس الثورة الحسينية وتطبيقاتها في العصر الحديث",
-    date: "2023-12-28",
-    duration: "38 دقيقة",
-    category: "دينية",
-    occasion: "ذكرى عاشوراء",
-    audioUrl: "#",
-    transcriptUrl: "#",
-    views: 95000,
-    featured: true,
-    tags: ["عاشوراء", "حسين", "ثورة"]
-  },
-  {
-    id: 3,
-    title: "خطاب حول العدالة الاجتماعية",
-    description: "محاضرة شاملة حول مفهوم العدالة الاجتماعية في الإسلام وتطبيقاتها في المجتمع المعاصر",
-    date: "2023-11-20",
-    duration: "52 دقيقة",
-    category: "اجتماعية",
-    occasion: "المؤتمر الاجتماعي السنوي",
-    audioUrl: "#",
-    transcriptUrl: "#",
-    views: 78000,
-    featured: false,
-    tags: ["عدالة", "مجتمع", "إسلام"]
-  },
-  {
-    id: 4,
-    title: "رسالة إلى الشباب",
-    description: "كلمة موجهة للشباب المسلم حول دورهم في بناء المستقبل والحفاظ على الهوية الإسلامية",
-    date: "2023-10-15",
-    duration: "32 دقيقة",
-    category: "شبابية",
-    occasion: "ملتقى الشباب الإسلامي",
-    audioUrl: "#",
-    transcriptUrl: "#",
-    views: 68000,
-    featured: false,
-    tags: ["شباب", "مستقبل", "هوية"]
-  },
-  {
-    id: 5,
-    title: "الوحدة الإسلامية",
-    description: "محاضرة مهمة حول ضرورة الوحدة بين المسلمين ونبذ الفرقة والاختلاف",
-    date: "2023-09-08",
-    duration: "41 دقيقة",
-    category: "دينية",
-    occasion: "أسبوع الوحدة الإسلامية",
-    audioUrl: "#",
-    transcriptUrl: "#",
-    views: 89000,
-    featured: false,
-    tags: ["وحدة", "إسلام", "أخوة"]
-  }
-];
 
-type Speech = typeof mockSpeeches[0];
 
 const getCategoryColor = (category: string) => {
   const colors = {
@@ -147,7 +77,7 @@ const SpeechCard: React.FC<{ speech: Speech; index: number }> = ({ speech, index
           
           <div className="flex items-center gap-2 text-amber-600 bg-amber-50 px-3 py-2 rounded-full">
             <Volume2 className="w-4 h-4" />
-            <span className="font-medium">{speech.views.toLocaleString()} مشاهدة</span>
+            <span className="font-medium">{(speech.views ?? 0).toLocaleString()} مشاهدة</span>
           </div>
         </div>
 
@@ -221,9 +151,30 @@ const SpeechCard: React.FC<{ speech: Speech; index: number }> = ({ speech, index
 };
 
 const Speeches: React.FC = () => {
-  const [speeches] = useState<Speech[]>(mockSpeeches);
+  const [speeches, setSpeeches] = useState<Speech[]>([]);
   const [search, setSearch] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+
+  useEffect(() => {
+        const fetchAlbum = async () => {
+          try {
+            const response = await requestApi({
+              route: `/al-sayyed-hasan/2/media`, // <-- Change this route as needed
+              method: requestMethods.GET,
+            });
+    
+            if (response.status === "success") {
+              setSpeeches(response.data);
+            } else {
+              console.error("Failed to fetch album:", response.message);
+            }
+          } catch (error) {
+            console.log("Error Catched: ", error);
+          }
+        };
+    
+        fetchAlbum();
+      }, []);
 
   const categories = [
     { value: "all", label: "جميع الخُطب", icon: "🎤" },
@@ -385,7 +336,7 @@ const Speeches: React.FC = () => {
               
               <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-amber-200">
                 <div className="text-3xl font-bold text-amber-800 mb-2">
-                  {filteredSpeeches.reduce((sum, speech) => sum + speech.views, 0).toLocaleString()}
+                  {filteredSpeeches.reduce((sum, speech) => sum + Number(speech.views ?? 0), 0).toLocaleString()}
                 </div>
                 <div className="text-amber-600">مشاهدة إجمالية</div>
               </div>
