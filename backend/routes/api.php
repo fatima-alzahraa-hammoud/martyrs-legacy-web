@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\MartyrController;
 use App\Http\Controllers\MartyrWillController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
@@ -29,4 +30,5 @@ Route::prefix('martyr')->group(function () {
     Route::get('/{id}/stories', [StoryController::class, 'getMartyrStories']);
     Route::get('/{id}/interviews', [InterviewController::class, 'getMartyrInterviews']);
     Route::get('/{id}/will', [MartyrWillController::class, 'getMartyrWillsByMartyr']);
+    Route::get('/{id}/album', [MediaController::class, 'getMediaByMartyr']);
 });
