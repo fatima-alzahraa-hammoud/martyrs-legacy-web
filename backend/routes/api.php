@@ -48,5 +48,7 @@ Route::middleware("jwt")->group(function () {
     Route::put('/martyr/{id}', [MartyrController::class, 'updateMartyr']);
     Route::middleware(AdminMiddleware::class)->group(function () {
         Route::delete('/martyr/{id}', [MartyrController::class, 'deleteMartyr']);
+        Route::post('/martyr/{id}/publish', [MartyrController::class, 'publishMartyr']);
     });
+
 });
