@@ -16,6 +16,13 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,
+            MartyrSeeder::class,
+            MediaSeeder::class,
+            UpdateMartyrImageSeeder::class,
+            StorySeeder::class,
+            InterviewSeeder::class,
+            MartyrWillSeeder::class,
+            SpeechSeeder::class,
         ]);
     }
 }
