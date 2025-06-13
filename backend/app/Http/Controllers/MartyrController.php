@@ -105,7 +105,7 @@ class MartyrController extends Controller
             'data' => $martyr
         ], 201);
     }
-
+    
     public function updateMartyr(Request $request, $id){
         $martyr = Martyr::findOrFail($id);
         if (!$martyr) {
@@ -134,6 +134,7 @@ class MartyrController extends Controller
             'is_published' => 'boolean',
             'updating' => 'boolean',
             'is_updated' => 'boolean',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -143,11 +144,37 @@ class MartyrController extends Controller
             ], 422);
         }
 
-        $martyr->update($validator->validated());
+        $data = $validator->validated();
+
+        // Handle image update
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $imagePath = $file->store('photos', 'public');
+
+            $media = \App\Models\Media::create([
+                'martyr_id' => $martyr->id,
+                'user_id' => auth()->id() ?? 1,
+                'file_path' => $imagePath,
+                'file_name' => $file->getClientOriginalName(),
+                'file_type' => 'photo',
+                'file_description' => 'Martyr main image',
+                'file_date' => now(),
+                'file_location' => null,
+                'views' => 0,
+                'likes' => 0,
+                'featured' => true,
+            ]);
+
+            $data['image_id'] = $media->id;
+        }
+
+        unset($data['image']);
+
+        $martyr->update($data);
 
         return response()->json([
             'status' => 'success',
-            'data' => $martyr
+            'data' => $martyr->fresh()
         ], 200);
     }
 

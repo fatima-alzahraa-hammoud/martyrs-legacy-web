@@ -45,4 +45,5 @@ Route::prefix('al-sayyed-hasan')->group(function () {
 
 Route::middleware("jwt")->group(function () {
     Route::post('/martyr', [MartyrController::class, 'createMartyr']);
+    Route::put('/martyr/{id}', [MartyrController::class, 'updateMartyr']);
 });
