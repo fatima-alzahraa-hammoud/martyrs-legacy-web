@@ -9,15 +9,18 @@ use Illuminate\Support\Facades\Log;
 class MartyrController extends Controller
 {
     public function getMartyrs(){
-        $martyrs = Martyr::all();
+        $martyrs = Martyr::with('image:id,file_path')->get();
+
+        Log::info('Retrieved martyrs', $martyrs->toArray());
+
         return response()->json([
             'status' => 'success',
             'data' => $martyrs
-        ], 200);
+        ], status: 200);
     }
 
     public function getMartyr($id){
-        $martyr = Martyr::findOrFail($id);
+        $martyr = Martyr::with('image:id,file_path')->findOrFail($id);
         if (!$martyr) {
             return response()->json([
                 'status' => 'error',

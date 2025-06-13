@@ -14,7 +14,10 @@ export interface Martyr {
     marital_status: string;
     nb_of_childen: number;
     related_phone_nb: string;
-    image: string; //fetched from medias
+    image: {
+        id: number;
+        file_path: string;
+    }
     bio: string;
     famous_quote: string;
 };

@@ -33,6 +33,23 @@ class SpeechController extends Controller
             'data' => $speech
         ], 200);
     }
+
+    public function getMartyrSpeeches($id)
+    {
+        $speeches = Speech::where('martyr_id', $id)->get();
+
+        if ($speeches->isEmpty()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No speeches found for this martyr'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $speeches
+        ], 200);
+    }
     public function createSpeech(Request $request)
     {
         $validator = Validator::make($request->all(), [
