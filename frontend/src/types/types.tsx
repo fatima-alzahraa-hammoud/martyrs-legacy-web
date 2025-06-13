@@ -12,7 +12,7 @@ export interface Martyr {
     burial_place: string;
     status: string;
     marital_status: string;
-    nb_of_childen: number;
+    nb_of_children: number;
     related_phone_nb: string;
     image: {
         id: number;
@@ -20,7 +20,8 @@ export interface Martyr {
     }
     bio: string;
     famous_quote: string;
-    is_published: boolean
+    is_published: boolean;
+    user_id_publish: number;
 };
 
 export interface Interview {

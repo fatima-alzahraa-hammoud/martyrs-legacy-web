@@ -15,7 +15,8 @@ const MartyrsPage: React.FC = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleMartyrAdded = (newMartyr: Martyr) => {
-      // Handle the newly added martyr (e.g., refresh list, show success message)
+      setMartyrs((prev) => [...prev, newMartyr]);
+      setIsDialogOpen(false);
       console.log("New martyr added:", newMartyr);
   };
 
