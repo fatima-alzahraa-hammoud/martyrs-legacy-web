@@ -194,6 +194,32 @@ class MartyrController extends Controller
             'message' => 'Martyr deleted successfully'
         ], 200);
     }
+
+    public function publishMartyr($id){
+        $martyr = Martyr::findOrFail($id);
+        if (!$martyr) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Martyr not found'
+            ], 404);
+        }
+
+        if($martyr->is_published) {
+            return response()->json([
+                'status' => 'warning',
+                'message' => 'Martyr is already published'
+            ], 400);
+        }
+
+        $martyr->is_published = true;
+        $martyr->save();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $martyr
+        ], 200);
+    }
+
     //public function store(Request $request)
 //{
   //  $validator = Validator::make($request->all(), [
