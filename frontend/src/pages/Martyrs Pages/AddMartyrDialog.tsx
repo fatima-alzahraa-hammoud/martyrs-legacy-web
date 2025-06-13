@@ -23,7 +23,7 @@ const AddMartyrDialog: React.FC<AddMartyrDialogProps> = ({ isOpen, onClose, onMa
         burial_place: "",
         status: "شهيد",
         marital_status: "",
-        nb_of_childen: 0,
+        nb_of_children: 0,
         related_phone_nb: "",
         image: "",
         bio: "",
@@ -38,7 +38,7 @@ const AddMartyrDialog: React.FC<AddMartyrDialogProps> = ({ isOpen, onClose, onMa
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
-            [name]: name === 'nb_of_childen' ? parseInt(value) || 0 : value
+            [name]: name === 'nb_of_children' ? parseInt(value) || 0 : value
         }));
     };
 
@@ -87,7 +87,7 @@ const AddMartyrDialog: React.FC<AddMartyrDialogProps> = ({ isOpen, onClose, onMa
                     burial_place: "",
                     status: "شهيد",
                     marital_status: "",
-                    nb_of_childen: 0,
+                    nb_of_children: 0,
                     related_phone_nb: "",
                     image: "",
                     bio: "",
@@ -270,8 +270,8 @@ const AddMartyrDialog: React.FC<AddMartyrDialogProps> = ({ isOpen, onClose, onMa
                                             <label className="block text-amber-700 font-medium mb-2 font-arabic">عدد الأولاد</label>
                                             <input
                                                 type="number"
-                                                name="nb_of_childen"
-                                                value={formData.nb_of_childen}
+                                                name="nb_of_children"
+                                                value={formData.nb_of_children}
                                                 onChange={handleInputChange}
                                                 min="0"
                                                 className="w-full px-4 py-3 bg-white border border-amber-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 text-amber-800 font-arabic text-right"
