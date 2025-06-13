@@ -1,71 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Search, Calendar, Image, Video, Play, Download, Share2, Eye, Heart, Filter, Grid, List } from "lucide-react";
+import type { MediaItem } from "../../types/types";
+import { requestApi } from "../../utils/requestAPI";
+import { requestMethods } from "../../utils/requestMethod";
 
-// Mock data for demonstration (you can replace with your actual MediaItem type)
-const mockMediaItems = [
-  {
-    id: 1,
-    file_name: "لقاء مع وفد الشباب",
-    file_description: "لحظات مؤثرة من اللقاء مع وفد الشباب المسلم، حيث تم مناقشة دورهم في بناء المستقبل",
-    file_path: "https://via.placeholder.com/400x300/f59e0b/ffffff?text=صورة+1",
-    file_type: "photo" as const,
-    file_date: "2024-01-20",
-    file_location: "/storage/media/photos/2024/youth_meeting_01.jpg",
-    views: 15420,
-    likes: 892,
-    featured: true
-  },
-  {
-    id: 2,
-    file_name: "خطاب المقاومة والصمود",
-    file_description: "مقطع فيديو من الخطاب التاريخي حول أهمية المقاومة والصمود في وجه التحديات",
-    file_path: "https://via.placeholder.com/400x300/ea580c/ffffff?text=فيديو+1",
-    file_type: "video" as const,
-    file_date: "2024-01-15",
-    file_location: "/storage/media/videos/2024/resistance_speech.mp4",
-    views: 28350,
-    likes: 1564,
-    featured: true
-  },
-  {
-    id: 3,
-    file_name: "زيارة المركز الإسلامي",
-    file_description: "صور من زيارة السيد للمركز الإسلامي الجديد ولقائه مع المصلين",
-    file_path: "https://via.placeholder.com/400x300/f59e0b/ffffff?text=صورة+2",
-    file_type: "photo" as const,
-    file_date: "2023-12-28",
-    file_location: "/storage/media/photos/2023/islamic_center_visit.jpg",
-    views: 12180,
-    likes: 756,
-    featured: false
-  },
-  {
-    id: 4,
-    file_name: "محاضرة العدالة الاجتماعية",
-    file_description: "مقاطع مختارة من محاضرة العدالة الاجتماعية في الإسلام",
-    file_path: "https://via.placeholder.com/400x300/ea580c/ffffff?text=فيديو+2",
-    file_type: "video" as const,
-    file_date: "2023-11-20",
-    file_location: "/storage/media/videos/2023/social_justice_lecture.mp4",
-    views: 19820,
-    likes: 1123,
-    featured: false
-  },
-  {
-    id: 5,
-    file_name: "لقاء الوحدة الإسلامية",
-    file_description: "صور من فعاليات أسبوع الوحدة الإسلامية واللقاءات المهمة",
-    file_path: "https://via.placeholder.com/400x300/f59e0b/ffffff?text=صورة+3",
-    file_type: "photo" as const,
-    file_date: "2023-09-08",
-    file_location: "/storage/media/photos/2023/unity_week_events.jpg",
-    views: 16750,
-    likes: 934,
-    featured: false
-  }
-];
-
-type MediaItem = typeof mockMediaItems[0];
 
 const MediaCard: React.FC<{ item: MediaItem; index: number; viewMode: 'grid' | 'list' }> = ({ item, index, viewMode }) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -138,7 +76,7 @@ const MediaCard: React.FC<{ item: MediaItem; index: number; viewMode: 'grid' | '
               
               <div className="flex items-center gap-2 text-amber-600 bg-amber-50 px-3 py-1 rounded-full">
                 <Eye className="w-4 h-4" />
-                <span>{item.views.toLocaleString()} مشاهدة</span>
+                <span>{(item.views ?? 0).toLocaleString()} مشاهدة</span>
               </div>
             </div>
 
@@ -153,7 +91,7 @@ const MediaCard: React.FC<{ item: MediaItem; index: number; viewMode: 'grid' | '
                   }`}
                 >
                   <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
-                  <span className="text-xs">{(item.likes + (isLiked ? 1 : 0)).toLocaleString()}</span>
+                  <span className="text-xs">{((item.likes ?? 0) + (isLiked ? 1 : 0)).toLocaleString()}</span>
                 </button>
                 
                 <button className="flex items-center gap-2 px-3 py-2 bg-amber-50 text-amber-600 rounded-full hover:bg-amber-100 transition-all duration-200">
@@ -241,7 +179,7 @@ const MediaCard: React.FC<{ item: MediaItem; index: number; viewMode: 'grid' | '
           
           <div className="flex items-center gap-2 text-amber-600 bg-amber-50 px-3 py-1 rounded-full">
             <Eye className="w-4 h-4" />
-            <span>{item.views.toLocaleString()}</span>
+            <span>{(item.views ?? 0).toLocaleString()}</span>
           </div>
         </div>
 
@@ -256,7 +194,7 @@ const MediaCard: React.FC<{ item: MediaItem; index: number; viewMode: 'grid' | '
               }`}
             >
               <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
-              <span className="text-xs">{(item.likes + (isLiked ? 1 : 0)).toLocaleString()}</span>
+              <span className="text-xs">{((item.likes ?? 0) + (isLiked ? 1 : 0)).toLocaleString()}</span>
             </button>
             
             <button className="flex items-center gap-1 px-3 py-2 bg-white border border-amber-300 text-amber-600 rounded-full hover:bg-amber-50 transition-all duration-200 transform hover:scale-105">
@@ -275,10 +213,31 @@ const MediaCard: React.FC<{ item: MediaItem; index: number; viewMode: 'grid' | '
 };
 
 const AlSayyedAlbum: React.FC = () => {
-  const [mediaItems] = useState<MediaItem[]>(mockMediaItems);
+  const [mediaItems, setMediaItems] = useState<MediaItem[]>([]);
   const [search, setSearch] = useState<string>("");
   const [selectedType, setSelectedType] = useState<string>("all");
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+
+  useEffect(() => {
+    const fetchAlbum = async () => {
+      try {
+        const response = await requestApi({
+          route: `/al-sayyed-hasan/2/media`, // <-- Change this route as needed
+          method: requestMethods.GET,
+        });
+
+        if (response.status === "success") {
+          setMediaItems(response.data);
+        } else {
+          console.error("Failed to fetch album:", response.message);
+        }
+      } catch (error) {
+        console.log("Error Catched: ", error);
+      }
+    };
+
+    fetchAlbum();
+  }, []);
 
   const mediaTypes = [
     { value: "all", label: "جميع الوسائط", icon: "📱" },
@@ -460,7 +419,7 @@ const AlSayyedAlbum: React.FC = () => {
               
               <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 border border-amber-200">
                 <div className="text-3xl font-bold text-amber-800 mb-2">
-                  {filteredItems.reduce((sum, item) => sum + item.views, 0).toLocaleString()}
+                  {filteredItems.reduce((sum, item) => sum + (item.views ?? 0), 0).toLocaleString()}
                 </div>
                 <div className="text-amber-600">مشاهدة إجمالية</div>
               </div>

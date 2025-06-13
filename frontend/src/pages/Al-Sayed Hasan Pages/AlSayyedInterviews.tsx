@@ -1,44 +1,10 @@
 import React, { useState } from "react";
 import { Play, Calendar, Tv, Download, Eye, Clock } from "lucide-react";
 import type { Interview } from "../../types/types";
+import { requestApi } from "../../utils/requestAPI";
+import { requestMethods } from "../../utils/requestMethod";
+import { useEffect } from "react";
 
-// Mock data for demonstration
-const mockInterviews = [
-  {
-    id: 1,
-    title: "مقابلة حول الأوضاع الإقليمية والدولية",
-    description: "مقابلة شاملة تتناول آخر التطورات في المنطقة والموقف من القضايا الراهنة",
-    document_type: "interview" as const,
-    outlet: "قناة الميادين",
-    content : "في هذه المقابلة، نتحدث عن الأوضاع الإقليمية والدولية وتأثيرها على الأمن القومي...",
-    date: "2024-03-15",
-    video_url: "https://youtu.be/_k36sB6olWc?si=6eyXIimSud5FqBEH",
-    duration: "45:30",
-    views: "2.5M"
-  },
-  {
-    id: 2,
-    title: "رسالة صوتية بمناسبة يوم القدس العالمي",
-    description: "كلمة مؤثرة حول أهمية القضية الفلسطينية ومكانة القدس في قلوب المسلمين",
-    document_type: "audio_message" as const,
-    outlet: "إذاعة النور",
-    content: "السلام عليكم ورحمة الله وبركاته، أيها الأحبة في كل مكان، في هذا اليوم العظيم...",
-    date: "2024-04-26",
-    audio_url: "https://example.com/audio.mp3",
-    duration: "12:45",
-    views: "1.8M"
-  },
-  {
-    id: 3,
-    title: "رسالة مكتوبة للشعب اللبناني",
-    description: "رسالة هامة تتضمن رؤية حول مستقبل لبنان والتحديات الاقتصادية",
-    document_type: "letter" as const,
-    outlet: "الموقع الرسمي",
-    date: "2024-05-01",
-    content: "بسم الله الرحمن الرحيم، أيها الأخوة والأخوات في لبنان الحبيب...",
-    views: "950K"
-  }
-];
 
 
 
@@ -210,8 +176,29 @@ const InterviewCard: React.FC<{ item: Interview; index: number }> = ({ item, ind
 };
 
 const AlSayyedInterviews: React.FC = () => {
-  const [interviews] = useState<Interview[]>(mockInterviews);
+  const [interviews, setInterviews] = useState<Interview[]>([]);
   const [filter, setFilter] = useState<string>('all');
+
+    useEffect(() => {
+      const fetchAlbum = async () => {
+        try {
+          const response = await requestApi({
+            route: `/al-sayyed-hasan/2/media`, // <-- Change this route as needed
+            method: requestMethods.GET,
+          });
+  
+          if (response.status === "success") {
+            setInterviews(response.data);
+          } else {
+            console.error("Failed to fetch album:", response.message);
+          }
+        } catch (error) {
+          console.log("Error Catched: ", error);
+        }
+      };
+  
+      fetchAlbum();
+    }, []);
 
   const filteredInterviews = interviews.filter(item => 
     filter === 'all' || item.document_type === filter

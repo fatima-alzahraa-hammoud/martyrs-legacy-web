@@ -42,3 +42,8 @@ Route::prefix('al-sayyed-hasan')->group(function () {
     Route::get('/2/media', [MediaController::class, 'getMediaByMartyr']);
     Route::get('/2/speeches', [SpeechController::class, 'getSpeechesByMartyr']);
 });
+
+Route::middleware("jwt")->group(function () {
+    Route::post('/martyr', [MartyrController::class, 'createMartyr']);
+    Route::put('/martyr/{id}', [MartyrController::class, 'updateMartyr']);
+});

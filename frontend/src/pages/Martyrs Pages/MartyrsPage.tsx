@@ -5,11 +5,20 @@ import type { Martyr } from "../../types/types";
 import { requestApi } from "../../utils/requestAPI";
 import { requestMethods } from "../../utils/requestMethod";
 import { useNavigate } from "react-router-dom";
+import AddMartyrDialog from "./AddMartyrDialog";
 import { jwtDecode } from "jwt-decode";
 
 const MartyrsPage: React.FC = () => {
   const [martyrs, setMartyrs] = useState<Martyr[]>([]);
   const [isAdmin, setIsAdmin] = useState(false); // Track if the user is an admin
+
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleMartyrAdded = (newMartyr: Martyr) => {
+      // Handle the newly added martyr (e.g., refresh list, show success message)
+      console.log("New martyr added:", newMartyr);
+  };
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,6 +75,18 @@ const MartyrsPage: React.FC = () => {
             نسرد قصصهم ونخلّد ذكراهم ليبقى نهجهم حيًّا في قلوبنا ووجداننا.
           </p>
         </header>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+          <button onClick={() => setIsDialogOpen(true)} className="flex items-center justify-center space-x-3 rtl:space-x-reverse bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105">
+            <Plus className="h-5 w-5" />
+            <span>إضافة شهيد</span>
+          </button>
+          <button className="flex items-center justify-center space-x-3 rtl:space-x-reverse bg-amber-100 hover:bg-amber-200 text-amber-800 px-6 py-3 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105">
+            <Search className="h-5 w-5" />
+            <span>بحث عن شهيد</span>
+          </button>
+        </div>
 
         {/* Martyrs List Section */}
         <section className="bg-white rounded-2xl shadow-lg border border-amber-200 p-8">
@@ -208,6 +229,13 @@ const MartyrsPage: React.FC = () => {
           </div>
         </section>
       </main>
+
+      <AddMartyrDialog
+          isOpen={isDialogOpen}
+          onClose={() => setIsDialogOpen(false)}
+          onMartyrAdded={handleMartyrAdded}
+      />
+
     </div>
   );
 };

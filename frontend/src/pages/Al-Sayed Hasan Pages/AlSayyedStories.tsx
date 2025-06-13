@@ -1,75 +1,12 @@
 import React, { useState } from "react";
 import { Search, Calendar, Heart, BookOpen, Star, Clock, User, ArrowLeft } from "lucide-react";
 import type { Story } from "../../types/types";
+import { requestApi } from "../../utils/requestAPI";
+import { requestMethods } from "../../utils/requestMethod";
+import { useEffect } from "react";
 
-// Mock data for demonstration
-const mockStories = [
-  {
-    id: 1,
-    title: "عندما التقيته في الحي",
-    description: "قصة مؤثرة عن لقاء عفوي في أحد أحياء الضاحية الجنوبية، تظهر تواضع السيد وقربه من الناس",
-    date: "2023-12-15",
-    author: "أم محمد",
-    category: "لقاءات شخصية",
-    readTime: "5 دقائق",
-    content: "كان ذلك في يوم خريفي بارد، عندما كنت أسير في أحد شوارع الضاحية الجنوبية...",
-    likes: 1250,
-    featured: true,
-    created_at: "2023-12-15T10:00:00Z"
-  },
-  {
-    id: 2,
-    title: "درس في الصبر والحكمة",
-    description: "موقف يروي كيف تعامل السيد مع أزمة صعبة بحكمة وصبر، مما ترك أثراً عميقاً في النفوس",
-    date: "2023-11-20",
-    author: "الحاج أبو علي",
-    category: "مواقف حكيمة",
-    readTime: "7 دقائق",
-    content: "في لحظة من أصعب اللحظات التي مرت بها المقاومة...",
-    likes: 890,
-    featured: false,
-    created_at: "2023-12-15T10:00:00Z"
-  },
-  {
-    id: 3,
-    title: "رحمته مع الأطفال",
-    description: "قصة جميلة تحكي عن لطف السيد مع الأطفال وكيف كان يتعامل معهم بحنان الأب",
-    date: "2023-10-08",
-    author: "أم زينب",
-    category: "الرحمة والحنان",
-    readTime: "4 دقائق",
-    content: "كان الأطفال يجتمعون حوله كالفراشات حول النور...",
-    likes: 2100,
-    featured: true,
-    created_at: "2023-12-15T10:00:00Z"
-  },
-  {
-    id: 4,
-    title: "قائد في الميدان",
-    description: "شهادة حية من أحد المقاتلين عن شجاعة السيد وقيادته الميدانية الحكيمة",
-    date: "2023-09-12",
-    author: "أبو حيدر",
-    category: "القيادة والشجاعة",
-    readTime: "8 دقائق",
-    content: "في ذلك اليوم الذي لن أنساه، كان السيد معنا في الخطوط الأمامية...",
-    likes: 1560,
-    featured: false,
-    created_at: "2023-12-15T10:00:00Z"
-  },
-  {
-    id: 5,
-    title: "بساطة العيش",
-    description: "قصة تعكس تواضع السيد وبساطة عيشه رغم المكانة العالية التي يحتلها",
-    date: "2023-08-25",
-    author: "الشيخ محمد",
-    category: "التواضع والبساطة",
-    readTime: "6 دقائق",
-    content: "زرته في بيته المتواضع، فوجدت رجلاً يعيش كأبسط الناس...",
-    likes: 980,
-    featured: false,
-    created_at: "2023-12-15T10:00:00Z"
-  }
-];
+
+
 
 
 const getCategoryColor = (category: string) => {
@@ -204,9 +141,30 @@ const StoryCard: React.FC<{ story: Story; index: number }> = ({ story, index }) 
 };
 
 const AlSayyedStories: React.FC = () => {
-  const [stories] = useState<Story[]>(mockStories);
+  const [stories, setStories] = useState<Story[]>([]);
   const [search, setSearch] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+
+  useEffect(() => {
+      const fetchAlbum = async () => {
+        try {
+          const response = await requestApi({
+            route: `/al-sayyed-hasan/2/media`, // <-- Change this route as needed
+            method: requestMethods.GET,
+          });
+  
+          if (response.status === "success") {
+            setStories(response.data);
+          } else {
+            console.error("Failed to fetch album:", response.message);
+          }
+        } catch (error) {
+          console.log("Error Catched: ", error);
+        }
+      };
+  
+      fetchAlbum();
+    }, []);
 
   const categories = [
     { value: "all", label: "جميع القصص", icon: "📚" },
