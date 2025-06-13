@@ -139,7 +139,7 @@ const MartyrsPage: React.FC = () => {
                         onClick={async () => {
                           try {
                             const response = await requestApi({
-                              route: `/martyrs/${martyr.id}/publish`,
+                              route: `/martyr/${martyr.id}/publish`,
                               method: requestMethods.PUT,
                             });
                             if (response.status === "success") {
