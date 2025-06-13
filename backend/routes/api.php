@@ -30,5 +30,5 @@ Route::prefix('martyr')->group(function () {
     Route::get('/{id}/stories', [StoryController::class, 'getMartyrStories']);
     Route::get('/{id}/interviews', [InterviewController::class, 'getMartyrInterviews']);
     Route::get('/{id}/will', [MartyrWillController::class, 'getMartyrWillsByMartyr']);
-    Route::get('/{id}/album', [MediaController::class, 'getMediaByMartyr']);
+    Route::get('/{id}/media', [MediaController::class, 'getMediaByMartyr']);
 });
