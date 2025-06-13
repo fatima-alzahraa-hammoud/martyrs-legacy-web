@@ -5,6 +5,7 @@ use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\MartyrController;
 use App\Http\Controllers\MartyrWillController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\SpeechController;
 use App\Http\Controllers\StoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
@@ -31,4 +32,13 @@ Route::prefix('martyr')->group(function () {
     Route::get('/{id}/interviews', [InterviewController::class, 'getMartyrInterviews']);
     Route::get('/{id}/will', [MartyrWillController::class, 'getMartyrWillsByMartyr']);
     Route::get('/{id}/media', [MediaController::class, 'getMediaByMartyr']);
+});
+
+
+Route::prefix('al-sayyed-hasan')->group(function () {
+    Route::get('/2', [MartyrController::class, 'getMartyr']);
+    Route::get('/2/stories', [StoryController::class, 'getMartyrStories']);
+    Route::get('/2/interviews', [InterviewController::class, 'getMartyrInterviews']);
+    Route::get('/2/media', [MediaController::class, 'getMediaByMartyr']);
+    Route::get('/2/speeches', [SpeechController::class, 'getSpeechesByMartyr']);
 });
