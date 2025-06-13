@@ -70,7 +70,7 @@ const MartyrPage: React.FC = () => {
                                 <div className="w-48 h-48 rounded-full overflow-hidden border-8 border-amber-200 shadow-2xl">
                                     {martyr?.image ? (
                                         <img
-                                            src={martyr.image}
+                                            src={`http://127.0.0.1:8000/storage/${martyr.image.file_path}`}
                                             alt={martyr.name}
                                             className="w-full h-full object-cover"
                                         />
@@ -83,7 +83,7 @@ const MartyrPage: React.FC = () => {
                             </div>
                             <div className="text-center lg:text-right flex-1">
                                 <h1 className="text-5xl font-bold text-amber-800 mb-4 font-arabic leading-relaxed">
-                                    {martyr?.name || "اسم الشهيد"}
+                                    {martyr?.first_name || "اسم الشهيد"}
                                 </h1>
                                 <p className="text-2xl text-amber-600 font-arabic italic leading-relaxed">
                                     سلامٌ على من صدق الوعد ومضى
