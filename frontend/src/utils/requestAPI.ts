@@ -7,9 +7,10 @@ interface RequestApiParams {
     route: string;
     method?: keyof typeof requestMethods;
     body?: any;
+    headers?: Record<string, string>;
 }
 
-export const requestApi = async ({ route, method, body }: RequestApiParams) => {
+export const requestApi = async ({ route, method, body, headers }: RequestApiParams) => {
     try {
         const response = await axios.request({
             url: route,

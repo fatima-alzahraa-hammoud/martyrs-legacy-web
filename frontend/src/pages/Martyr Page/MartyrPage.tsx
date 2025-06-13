@@ -18,10 +18,9 @@ const MartyrPage: React.FC = () => {
     const [currentUser, setCurrentUser] = useState<{ user_id: number; role_id: number } | null>(null);
     
     const handleMartyrEdited = (updatedMartyr: Martyr) => {
-        setMartyr(updatedMartyr);  
+        setMartyr(updatedMartyr); 
         setIsDialogOpen(false); // Close the dialog after editing 
     }
-
 
     useEffect(() => {
         const fetchMartyr = async () => {

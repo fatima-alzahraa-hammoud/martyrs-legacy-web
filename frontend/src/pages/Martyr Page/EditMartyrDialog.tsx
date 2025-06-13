@@ -92,15 +92,29 @@ const EditMartyrDialog: React.FC<EditMartyrDialogProps> = ({ isOpen, onClose, on
         setIsLoading(true);
 
         try {
-            // Create the updated martyr data object
-            const martyrData = {
-                ...formData
-            };
+            // Create a FormData object
+            const formDataToSend = new FormData();
+
+            // Append all form data fields
+            Object.keys(formData).forEach((key) => {
+                const value = formData[key as keyof typeof formData];
+                if (key !== "image") {
+                    formDataToSend.append(key, value !== undefined && value !== null ? String(value) : "");
+                }
+            });
+
+            // Append the image file if it exists
+            if (imageFile) {
+                formDataToSend.append("image", imageFile);
+            }
 
             const response = await requestApi({
                 route: `/martyr/${martyr.id}`,
                 method: requestMethods.PUT,
-                body: martyrData,
+                body: formDataToSend,
+                headers: {
+                    "Content-Type": "multipart/form-data", // Ensure the correct content type
+                },
             });
 
             if (response.status === "success") {
