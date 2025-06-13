@@ -5,13 +5,25 @@ import type { Martyr } from "../../types/types";
 import { requestApi } from "../../utils/requestAPI";
 import { requestMethods } from "../../utils/requestMethod";
 import MartyrSideBar from "./MartyrSideBar";
+import EditMartyrDialog from "./EditMartyrDialog";
+import { jwtDecode } from "jwt-decode";
 
 
 const MartyrPage: React.FC = () => {
     const { id } = useParams(); // Get the martyr ID from the URL
     const [martyr, setMartyr] = useState<Martyr | null>(null);
 
-    useEffect(() =>{
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [canEdit, setCanEdit] = useState(false);
+    const [currentUser, setCurrentUser] = useState<{ user_id: number; role_id: number } | null>(null);
+    
+    const handleMartyrEdited = (updatedMartyr: Martyr) => {
+        setMartyr(updatedMartyr);  
+        setIsDialogOpen(false); // Close the dialog after editing 
+    }
+
+
+    useEffect(() => {
         const fetchMartyr = async () => {
             try {
                 const response = await requestApi({
@@ -30,8 +42,28 @@ const MartyrPage: React.FC = () => {
             }
         }
 
+        // Decode user from JWT
+        const token = sessionStorage.getItem("token");
+        if (token) {
+            try {
+                setCurrentUser(jwtDecode<{ user_id: number; role_id: number }>(token));
+            } catch (e) {
+                setCurrentUser(null);
+            }
+        }
+
         fetchMartyr();
     }, []);
+
+    useEffect(() => {
+        setCanEdit(
+            !!(
+                currentUser &&
+                martyr &&
+                (currentUser.role_id === 1 || currentUser.user_id === martyr.user_id_publish)
+            )
+        );
+    }, [currentUser, martyr]);
 
     const calculateAge = (birth: string, death: string): number => {
         const birthDate = new Date(birth);
@@ -52,14 +84,17 @@ const MartyrPage: React.FC = () => {
 
             {/* Main Content */}
             <div className="flex-1 p-6">
-                <div className="p-6">
-                    <Link 
-                        to="/martyrs"
-                        className="inline-flex items-center space-x-2 rtl:space-x-reverse text-amber-700 hover:text-amber-800 transition-colors duration-200"
-                    >
-                        <ArrowLeft className="h-5 w-5" />
-                        <span className="font-medium font-arabic">العودة إلى قائمة الشهداء</span>
-                    </Link>
+                <div className="p-6 flex items-center justify-between">
+                
+                    {canEdit && (
+                        <button
+                            onClick={() => setIsDialogOpen(true)}
+                            className="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-5 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
+                        >
+                            <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" className="lucide lucide-edit"><path d="M15.232 5.232l3.536 3.536M9 11l6-6a2 2 0 1 1 2.828 2.828l-6 6M7 13h2v2H7z"></path></svg>
+                            <span className="font-arabic">تعديل معلومات الشهيد</span>
+                        </button>
+                    )}
                 </div>
 
                 <div className="container mx-auto px-6 pb-12">
@@ -170,7 +205,7 @@ const MartyrPage: React.FC = () => {
                                         </div>
                                         <div className="bg-gradient-to-r from-amber-25 to-orange-25 rounded-lg p-4">
                                             <p className="text-amber-600 font-medium mb-1 font-arabic">عدد الأولاد</p>
-                                            <p className="text-amber-800 font-bold text-lg font-arabic">{martyr?.nb_of_childen}</p>
+                                            <p className="text-amber-800 font-bold text-lg font-arabic">{martyr?.nb_of_children}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -234,6 +269,13 @@ const MartyrPage: React.FC = () => {
                     </div>
                 </div>
             </div>
+
+            <EditMartyrDialog
+                isOpen={isDialogOpen}
+                onClose={() => setIsDialogOpen(false)}
+                onMartyrUpdated={handleMartyrEdited}
+                martyr={martyr}
+            />
         </div>
     );
 };
