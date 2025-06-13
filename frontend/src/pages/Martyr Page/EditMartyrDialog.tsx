@@ -58,7 +58,7 @@ const EditMartyrDialog: React.FC<EditMartyrDialogProps> = ({ isOpen, onClose, on
             });
             setImagePreview(
                 martyr.image && typeof martyr.image === "object" && "file_path" in martyr.image
-                    ? martyr.image.file_path
+                    ? `http://127.0.0.1:8000/storage/${martyr.image.file_path}` // Add the full URL here
                     : ""
             );
             setImageFile(null);

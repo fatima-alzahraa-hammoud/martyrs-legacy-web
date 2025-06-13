@@ -164,7 +164,7 @@ const MartyrsPage: React.FC = () => {
                         onClick={async () => {
                           try {
                             const response = await requestApi({
-                              route: `/martyrs/${martyr.id}`,
+                              route: `/martyr/${martyr.id}`,
                               method: requestMethods.DELETE,
                             });
                             if (response.status === "success") {
@@ -203,7 +203,7 @@ const MartyrsPage: React.FC = () => {
                             if (confirmDelete) {
                               try {
                                 const response = await requestApi({
-                                  route: `/martyrs/${martyr.id}`,
+                                  route: `/martyr/${martyr.id}`,
                                   method: requestMethods.DELETE,
                                 });
                                 if (response.status === "success") {
