@@ -32,6 +32,23 @@ class MediaController extends Controller
             'data' => $media
         ], 200);
     }
+
+    public function getMediaByMartyr($id)
+    {
+        $media = Media::where('martyr_id', $id)->get();
+
+        if ($media->isEmpty()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No media found for this martyr'
+            ], 404);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $media
+        ], 200);
+    }
     public function createMedia(Request $request)
     {
         $validator = Validator::make($request->all(), [
