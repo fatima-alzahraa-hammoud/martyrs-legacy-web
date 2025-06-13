@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Plus, Search, BookOpen, Calendar, User, Link } from "lucide-react";
+import { Plus, Search, BookOpen, Calendar, User } from "lucide-react";
 import Sidebar from "../SideBar";
 import type { Martyr } from "../../types/types";
 import { requestApi } from "../../utils/requestAPI";
 import { requestMethods } from "../../utils/requestMethod";
 import { useNavigate } from "react-router-dom";
 import AddMartyrDialog from "./AddMartyrDialog";
+import { jwtDecode } from "jwt-decode";
 
 const MartyrsPage: React.FC = () => {
   const [martyrs, setMartyrs] = useState<Martyr[]>([]);
+  const [isAdmin, setIsAdmin] = useState(false); // Track if the user is an admin
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -20,6 +22,15 @@ const MartyrsPage: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Decode JWT and check role_id
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      const decodedToken: { role_id: number } = jwtDecode(token);
+      console.log("Decoded Token:", decodedToken);
+      setIsAdmin(decodedToken.role_id === 1); // Set isAdmin to true if role_id is 1
+    }
+
+    // Fetch martyrs
     const fetchMartyrs = async () => {
       try {
         const response = await requestApi({
@@ -40,6 +51,11 @@ const MartyrsPage: React.FC = () => {
 
     fetchMartyrs();
   }, []);
+
+  // Filter martyrs for non-admin users (only show published ones)
+  const visibleMartyrs = isAdmin
+    ? martyrs // Admin sees all martyrs
+    : martyrs.filter((martyr) => martyr.is_published); // Non-admin sees only published martyrs
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-amber-25 to-orange-25">
@@ -79,25 +95,14 @@ const MartyrsPage: React.FC = () => {
             <h2 className="text-2xl font-bold text-amber-800 font-arabic">قائمة الشهداء</h2>
           </div>
 
-          {martyrs.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="w-24 h-24 mx-auto mb-6 bg-amber-100 rounded-full flex items-center justify-center">
-                <User className="h-12 w-12 text-amber-400" />
-              </div>
-              <p className="text-amber-600 text-lg font-arabic mb-4">
-                لا توجد بيانات شهداء متاحة حالياً
-              </p>
-              <p className="text-amber-500 font-arabic">
-                يرجى إضافة الشهداء لعرض قائمتهم هنا
-              </p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {martyrs.map((martyr) => (
-                <div
-                  key={martyr.id}
-                  className="bg-gradient-to-br from-amber-25 to-orange-25 rounded-xl p-6 shadow-md border border-amber-200 hover:shadow-lg transition-all duration-300 transform hover:scale-105"
-                >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {visibleMartyrs.map((martyr) => (
+              <div
+                key={martyr.id}
+                className="bg-gradient-to-br from-amber-25 to-orange-25 rounded-xl p-6 shadow-md border border-amber-200 hover:shadow-lg transition-all duration-300 transform hover:scale-105 flex flex-col"
+              >
+                {/* Martyr Info Section */}
+                <div className="flex-1">
                   <div className="text-center mb-4">
                     <div className="w-24 h-24 mx-auto mb-4 rounded-full overflow-hidden border-4 border-amber-200 shadow-md">
                       {martyr.image ? (
@@ -122,19 +127,106 @@ const MartyrsPage: React.FC = () => {
                       </p>
                     </div>
                   </div>
-
-                  {/* Navigate to Martyr Page */}
-                  <button
-                    onClick={()=>navigate(`/martyr/${martyr.id}`)}
-                    className="w-full flex items-center justify-center space-x-2 rtl:space-x-reverse bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg"
-                  >
-                    <BookOpen className="h-4 w-4" />
-                    <span>اقرأ المزيد</span>
-                  </button>
                 </div>
-              ))}
-            </div>
-          )}
+
+                {/* Actions Section */}
+                <div className="mt-auto space-y-3">
+                  {/* Admin-Specific Actions for Unpublished Martyrs */}
+                  {isAdmin && !martyr.is_published && (
+                    <div className="flex gap-2">
+                      <button
+                        onClick={async () => {
+                          try {
+                            const response = await requestApi({
+                              route: `/martyrs/${martyr.id}/publish`,
+                              method: requestMethods.PUT,
+                            });
+                            if (response.status === "success") {
+                              alert("تم قبول الشهيد بنجاح");
+                              setMartyrs((prev) =>
+                                prev.map((item) =>
+                                  item.id === martyr.id
+                                    ? { ...item, is_published: true }
+                                    : item
+                                )
+                              );
+                            }
+                          } catch (error) {
+                            console.error("Error publishing martyr:", error);
+                          }
+                        }}
+                        className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg font-arabic text-sm"
+                      >
+                        قبول
+                      </button>
+                      <button
+                        onClick={async () => {
+                          try {
+                            const response = await requestApi({
+                              route: `/martyrs/${martyr.id}`,
+                              method: requestMethods.DELETE,
+                            });
+                            if (response.status === "success") {
+                              alert("تم رفض الشهيد بنجاح");
+                              setMartyrs((prev) =>
+                                prev.filter((item) => item.id !== martyr.id)
+                              );
+                            }
+                          } catch (error) {
+                            console.error("Error declining martyr:", error);
+                          }
+                        }}
+                        className="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg font-arabic text-sm"
+                      >
+                        رفض
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Navigate to Martyr Page and Delete for Published Martyrs */}
+                  {martyr.is_published && (
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => navigate(`/martyr/${martyr.id}`)}
+                        className="flex-1 flex items-center justify-center space-x-2 rtl:space-x-reverse bg-amber-600 hover:bg-amber-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg font-arabic text-sm"
+                      >
+                        <BookOpen className="h-4 w-4" />
+                        <span>اقرأ المزيد</span>
+                      </button>
+                      {isAdmin && (
+                        <button
+                          onClick={async () => {
+                            const confirmDelete = window.confirm(
+                              `هل أنت متأكد أنك تريد حذف الشهيد ${martyr.first_name} ${martyr.last_name}؟`
+                            );
+                            if (confirmDelete) {
+                              try {
+                                const response = await requestApi({
+                                  route: `/martyrs/${martyr.id}`,
+                                  method: requestMethods.DELETE,
+                                });
+                                if (response.status === "success") {
+                                  alert("تم حذف الشهيد بنجاح");
+                                  setMartyrs((prev) =>
+                                    prev.filter((item) => item.id !== martyr.id)
+                                  );
+                                }
+                              } catch (error) {
+                                console.error("Error deleting martyr:", error);
+                              }
+                            }
+                          }}
+                          className="flex-1 flex items-center justify-center space-x-2 rtl:space-x-reverse bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 shadow-md hover:shadow-lg font-arabic text-sm"
+                        >
+                          <span>حذف</span>
+                        </button>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
       </main>
 

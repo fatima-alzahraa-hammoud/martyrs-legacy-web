@@ -20,6 +20,7 @@ export interface Martyr {
     }
     bio: string;
     famous_quote: string;
+    is_published: boolean
 };
 
 export interface Interview {
